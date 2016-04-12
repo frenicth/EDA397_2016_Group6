@@ -6,7 +6,9 @@ Improve productivity of pairs.
 
 HOW:
 Automatically suggesting pairs for solving a set of tasks.
+	- Could perhaps get members and tasks from trello or git.
 
 Sessions or pairs are evaluated to improve further projects/sessions.
-
+	- this could be done either by checking efficiency through quality of code or timewise based on task completion times. 
+	- Could also be done based on how the involved people evaluate the session.
 

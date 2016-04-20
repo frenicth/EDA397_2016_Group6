@@ -3,6 +3,7 @@ package group6.eda397_2016.chalmers.se.pinder.model;
 import java.util.List;
 
 public class Profile {
+    private int id;
     private String name;
     private List<Skill> skills;
 

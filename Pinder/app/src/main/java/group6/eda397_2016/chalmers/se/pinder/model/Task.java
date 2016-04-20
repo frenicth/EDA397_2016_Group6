@@ -3,12 +3,13 @@ package group6.eda397_2016.chalmers.se.pinder.model;
 import java.util.List;
 
 public class Task {
+    private int id;
     private String name;
     private String description;
     private List<Skill> mandatoryRequirements;
     private List<Skill> recommendedRequirements;
     private List<Profile> assignees;
-    private int velocity;
+    private int storyPoints;
     private State state;
 
 
@@ -52,12 +53,12 @@ public class Task {
         this.assignees = assignees;
     }
 
-    public int getVelocity() {
-        return velocity;
+    public int getStoryPoints() {
+        return storyPoints;
     }
 
-    public void setVelocity(int velocity) {
-        this.velocity = velocity;
+    public void setStoryPoints(int storyPoints) {
+        this.storyPoints = storyPoints;
     }
 
     public State getState() {

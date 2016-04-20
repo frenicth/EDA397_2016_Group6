@@ -50,4 +50,14 @@ public class DatabaseLocal implements Database{
     public void assignProfilesToTask(List<Profile> profiles, Task task) {
         //TODO
     }
+
+    @Override
+    public Task getTaskById(int id) {
+        return null;
+    }
+
+    @Override
+    public Profile getProfileById(int id) {
+        return null;
+    }
 }

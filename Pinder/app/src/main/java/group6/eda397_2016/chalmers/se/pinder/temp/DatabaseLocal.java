@@ -8,7 +8,11 @@ import group6.eda397_2016.chalmers.se.pinder.model.Profile;
 import group6.eda397_2016.chalmers.se.pinder.model.Task;
 
 
-
+/**
+ * An implementation of the Database interface. Provides a runtime storage for the entities of the
+ * application. This class is actually a singleton, which means only one instance will exist while
+ * the application is opened.
+ */
 public class DatabaseLocal implements Database{
     private static volatile DatabaseLocal instance;
     private volatile List<Profile> profiles;

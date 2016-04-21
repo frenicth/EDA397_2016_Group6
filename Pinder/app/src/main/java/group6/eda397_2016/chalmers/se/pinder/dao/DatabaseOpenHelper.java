@@ -1,6 +1,8 @@
 package group6.eda397_2016.chalmers.se.pinder.dao;
 
+import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.StrictMode;
@@ -21,18 +23,34 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL(createTaskTable());
-        db.execSQL(createProfileTable());
+        /*db.execSQL(createTaskTable());
         db.execSQL(createSkillsTable());
         db.execSQL(createRequiredSkillsTable());
         db.execSQL(createProfileSkillsTable());
         db.execSQL(createTeamsTable());
+        */
+        db.execSQL(createProfileTable());
 
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
+    }
+    public void addProfile(String name){
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("name", name);
+        db.insert("PROFILES", null, values);
+        db.close();
+    }
+
+    public void getProfile(){
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor c = db.rawQuery("SELECT * FROM PROFILES",null);
+        c.moveToFirst();
+        c.moveToLast();
+        System.out.println(c.getString(c.getColumnIndex("name")));
     }
 
     private String createSkillsTable() {
@@ -45,7 +63,8 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
         final String KEY_LANGUAGE_SKILLS = "language";
         final String SKILLS_TABLE_CREATE =
                 "CREATE TABLE" + SKILLS_TABLE_NAME + " (" + KEY_ID_SKILLS +
-                        " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL," + KEY_LANGUAGE_SKILLS + "TEXT" + ")";
+                        " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL," +
+                        KEY_LANGUAGE_SKILLS + "TEXT" + ")";
         return SKILLS_TABLE_CREATE;
     }
 
@@ -58,7 +77,7 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
                 "CREATE TABLE" + REQUIRED_SKILLS_TABLE_NAME +
                         " (" + KEY_ID + "INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL," +
                         TASK_ID+" INTEGER," +
-                        "FOREIGN KEY () REFERENCES PROFILES (id)), " +
+                        "FOREIGN KEY (TASK_ID) REFERENCES TASKS (id)), " +
                         "SKILL_ID INTEGER, " +
                         "FOREIGN KEY (SKILL_ID) REFERENCES SKILLS (id)) " +
                         ")";
@@ -113,6 +132,8 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
                         ") ";
         return TASK_TABLE_CREATE;
     }
+
+
 
     private String createProfileTable() {
         final String PROFILES_TABLE_NAME = "PROFILES";

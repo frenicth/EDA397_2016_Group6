@@ -15,6 +15,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         DatabaseOpenHelper db = new DatabaseOpenHelper(this);
+        //db.addProfile("##########");
+        //db.addProfile("a");
+        //db.addProfile("b");
+        db.getProfile();
+        db.close();
 
     }
     public void showTasks (View view ) {

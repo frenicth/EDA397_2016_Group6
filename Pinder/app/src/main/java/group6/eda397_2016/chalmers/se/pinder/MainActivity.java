@@ -16,6 +16,7 @@ public class MainActivity extends AppCompatActivity {
     ProfilesFragment profilesFragment;
     FragmentTransaction fragmentTransaction;
     TaskFragment taskFragment;
+    UserProfileFragment userProfileFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,12 +26,14 @@ public class MainActivity extends AppCompatActivity {
         mainFragment = new MainFragment();
         profilesFragment = new ProfilesFragment();
         taskFragment = new TaskFragment();
+        userProfileFragment = new UserProfileFragment();
         fragmentManager.beginTransaction().add(R.id.activity_main, mainFragment).commit();
 
     }
     public void showTasks (View view ) {
         Database database = ((PinderApplication)getApplication()).getDatabase();
         Log.i(this.getClass().getName(), database.getAllTasks().size() + "");
+
         fragmentTransaction= getFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.activity_main, taskFragment);
         fragmentTransaction.addToBackStack("");
@@ -39,26 +42,33 @@ public class MainActivity extends AppCompatActivity {
 
     public void viewProfile(View view){
         //view you own profile, get data from database and show in fragment used below
+        fragmentTransaction= getFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.activity_main, userProfileFragment);
+        fragmentTransaction.addToBackStack("");
+        fragmentTransaction.commit();
     }
     public void showProfiles(View view){
         //view list of profiles, get data from database and show in fragment used below
         fragmentTransaction= getFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.activity_main, profilesFragment);
-        fragmentTransaction.addToBackStack("showProfiles");
+        fragmentTransaction.addToBackStack("");
         fragmentTransaction.commit();
     }
-    public void backFromProfiles(View view){
+
+    //back to main fragment
+    public void backToMain(View view){
         fragmentTransaction= getFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.activity_main, mainFragment);
         fragmentTransaction.addToBackStack("");
         fragmentTransaction.commit();
     }
 
-
-    public void backFromTasks(View view){
+    //back to list of tasks when viewing a single task
+    public void backToTasks(View view){
         fragmentTransaction= getFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.activity_main, mainFragment);
+        fragmentTransaction.replace(R.id.activity_main, taskFragment);
         fragmentTransaction.addToBackStack("");
         fragmentTransaction.commit();
     }
+
 }

@@ -50,7 +50,8 @@
         android:id="@+id/editText2"
         android:hint="password"
         android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="20dp" />
+        android:layout_marginBottom="20dp"
+        android:gravity="center" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -69,7 +70,8 @@
         android:hint="password"
         android:singleLine="true"
         android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="20dp" />
+        android:layout_marginBottom="20dp"
+        android:gravity="center" />
 
     <LinearLayout
         android:orientation="horizontal"

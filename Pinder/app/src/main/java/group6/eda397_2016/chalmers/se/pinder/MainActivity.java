@@ -27,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
         profilesFragment = new ProfilesFragment();
         taskFragment = new TaskFragment();
         userProfileFragment = new UserProfileFragment();
+
         fragmentManager.beginTransaction().add(R.id.activity_main, mainFragment).commit();
 
     }
@@ -55,20 +56,17 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.commit();
     }
 
-    //back to main fragment
-    public void backToMain(View view){
-        fragmentTransaction= getFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.activity_main, mainFragment);
-        fragmentTransaction.addToBackStack("");
-        fragmentTransaction.commit();
-    }
-
     //back to list of tasks when viewing a single task
-    public void backToTasks(View view){
-        fragmentTransaction= getFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.activity_main, taskFragment);
-        fragmentTransaction.addToBackStack("");
-        fragmentTransaction.commit();
+    public void backTopPrev(View view){
+        fragmentManager.popBackStack();
+    }
+    @Override
+    public void onBackPressed() {
+        if (getFragmentManager().getBackStackEntryCount() > 0) {
+            getFragmentManager().popBackStack();
+        } else {
+            super.onBackPressed();
+        }
     }
 
 }

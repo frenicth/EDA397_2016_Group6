@@ -16,5 +16,5 @@
         android:layout_height="wrap_content"
         android:text="Back"
         android:id="@+id/button6"
-        android:onClick="backToMain"/>
+        android:onClick="backTopPrev"/>
 </LinearLayout>

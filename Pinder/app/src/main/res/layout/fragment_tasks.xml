@@ -24,7 +24,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Back"
-            android:onClick="backToMain"/>
+            android:onClick="backTopPrev"/>
 
         <Button
             android:layout_width="wrap_content"

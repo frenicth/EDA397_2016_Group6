@@ -42,7 +42,7 @@ public class LoginActivity extends Activity {
 
         fragmentTransaction= getFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.activity_login, registerFragment);
-        fragmentTransaction.addToBackStack("register");
+        fragmentTransaction.addToBackStack("");
         fragmentTransaction.commit();
     }
 

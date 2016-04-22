@@ -12,6 +12,8 @@ import android.util.Log;
 import android.view.View;
 import android.app.Activity;
 import android.app.ActionBar;
+import android.widget.Toast;
+
 /**
  * Created by fredrikholmdahl on 16-04-20.
  */

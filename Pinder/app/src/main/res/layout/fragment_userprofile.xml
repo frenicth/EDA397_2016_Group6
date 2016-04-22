@@ -11,10 +11,10 @@
         android:text="'Your username'"
         android:id="@+id/textView2" />
 
-    <Button
+    <!--Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Back"
         android:id="@+id/button6"
-        android:onClick="backTopPrev"/>
+        android:onClick="backTopPrev"/-->
 </LinearLayout>

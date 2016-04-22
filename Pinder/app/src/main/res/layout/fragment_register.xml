@@ -84,13 +84,19 @@
             android:layout_height="wrap_content"
             android:text="Cancel"
             android:id="@+id/button3"
-            android:onClick="cancelRegister"/>
+            android:onClick="cancelRegister"
+            android:background="@color/colorSecondary"
+            android:textColor="@color/white"
+            android:layout_margin="5dp" />
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Register"
-            android:id="@+id/button4" />
+            android:id="@+id/button4"
+            android:background="@color/colorPrimary"
+            android:textColor="@color/white"
+            android:layout_margin="5dp" />
     </LinearLayout>
 
 </LinearLayout>

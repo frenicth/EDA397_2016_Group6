@@ -53,7 +53,10 @@
                 android:layout_height="wrap_content"
                 android:text="Register"
                 android:id="@+id/button"
-                android:onClick="register"/>
+                android:onClick="register"
+                android:background="@color/colorSecondary"
+                android:textColor="@color/white"
+                android:layout_margin="5dp" />
 
             <Button
                 android:layout_width="wrap_content"
@@ -61,7 +64,10 @@
                 android:text="Sign in"
                 android:id="@+id/button2"
                 android:gravity="center"
-                android:onClick="login"/>
+                android:onClick="login"
+                android:background="@color/colorPrimary"
+                android:textColor="@color/white"
+                android:layout_margin="5dp"/>
         </LinearLayout>
 
     </LinearLayout>

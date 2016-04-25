@@ -5,6 +5,7 @@ import java.util.List;
 
 import group6.eda397_2016.chalmers.se.pinder.dao.Database;
 import group6.eda397_2016.chalmers.se.pinder.model.Profile;
+import group6.eda397_2016.chalmers.se.pinder.model.Skill;
 import group6.eda397_2016.chalmers.se.pinder.model.Task;
 
 
@@ -21,6 +22,11 @@ public class DatabaseLocal implements Database{
     private DatabaseLocal(){
         profiles = new ArrayList<>();
         tasks = new ArrayList<>();
+        List<Skill> skills1 = new ArrayList<>();
+        skills1.add(Skill.CPlusPlus);
+        skills1.add(Skill.Java);
+        profiles.add(new Profile(0,"John Doe",skills1));
+        profiles.add(new Profile(1,"Jane Doe",new ArrayList<Skill>()));
     }
 
     public synchronized static DatabaseLocal getInstance(){

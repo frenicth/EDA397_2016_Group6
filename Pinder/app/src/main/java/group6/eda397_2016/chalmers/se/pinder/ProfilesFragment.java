@@ -2,9 +2,20 @@ package group6.eda397_2016.chalmers.se.pinder;
 
 import android.app.Fragment;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ListView;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import group6.eda397_2016.chalmers.se.pinder.listhelpers.ProfileAdapter;
+import group6.eda397_2016.chalmers.se.pinder.model.Profile;
 
 /**
  * Created by fredrikholmdahl on 16-04-21.
@@ -18,6 +29,21 @@ public class ProfilesFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for login
         view = inflater.inflate(R.layout.fragment_profiles, container, false);
+        ListView listView = (ListView)view.findViewById(R.id.profileList);
+        List<Profile> profiles = ((PinderApplication)getActivity().getApplication()).getDatabase().getAllProfiles();
+
+
+        final ArrayAdapter adapter = new ProfileAdapter(getActivity(),
+                R.layout.profilelistelement, profiles);
+        listView.setAdapter(adapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                final Profile item = (Profile) parent.getItemAtPosition(position);
+                Log.i(getClass().getName(),item.toString());
+            }
+        });
+
         return view;
     }
 

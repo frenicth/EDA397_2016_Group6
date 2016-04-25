@@ -7,6 +7,15 @@ public class Profile {
     private String name;
     private List<Skill> skills;
 
+    public Profile(int id, String name, List<Skill> skills) {
+        this.id = id;
+        this.name = name;
+        this.skills = skills;
+    }
+
+    public Profile() {
+    }
+
     public String getName() {
         return name;
     }
@@ -21,5 +30,14 @@ public class Profile {
 
     public void setSkills(List<Skill> skills) {
         this.skills = skills;
+    }
+
+    @Override
+    public String toString() {
+        String ret = name + " Skills: ";
+        for (Skill skill : skills) {
+            ret += skill.name() + " ";
+        }
+        return ret;
     }
 }

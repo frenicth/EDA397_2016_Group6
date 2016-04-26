@@ -27,6 +27,8 @@ public class DatabaseLocal implements Database{
         skills1.add(Skill.Java);
         profiles.add(new Profile(0,"John Doe",skills1));
         profiles.add(new Profile(1,"Jane Doe",new ArrayList<Skill>()));
+        tasks.add(new Task(0,"Task 1","The first task",5));
+        tasks.add(new Task(1,"Task 2","The second task",3));
     }
 
     public synchronized static DatabaseLocal getInstance(){

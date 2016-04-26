@@ -24,12 +24,12 @@ public class ProfileAdapter extends ArrayAdapter<Profile>{
     public View getView(int position, View convertView, ViewGroup parent) {
         if (convertView == null) {
             LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = inflater.inflate(R.layout.profilelistelement, null);
+            convertView = inflater.inflate(R.layout.listelement, null);
         }
         Profile profile = objects.get(position);
         if(profile!=null){
-            TextView title = (TextView)convertView.findViewById(R.id.profile_title);
-            TextView skillset = (TextView)convertView.findViewById(R.id.profile_skills);
+            TextView title = (TextView)convertView.findViewById(R.id.listElemTitle);
+            TextView skillset = (TextView)convertView.findViewById(R.id.listElemDescription);
             title.setText(profile.getName());
             String skills = "";
             for (int i = 0; i < profile.getSkills().size();i++){

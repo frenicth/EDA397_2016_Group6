@@ -12,6 +12,15 @@ public class Task {
     private int storyPoints;
     private State state;
 
+    public Task() {
+    }
+
+    public Task(int id, String name, String description, int storyPoints) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.storyPoints = storyPoints;
+    }
 
     public String getName() {
         return name;
@@ -67,5 +76,19 @@ public class Task {
 
     public void setState(State state) {
         this.state = state;
+    }
+
+    @Override
+    public String toString() {
+        return "Task{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", mandatoryRequirements=" + mandatoryRequirements +
+                ", recommendedRequirements=" + recommendedRequirements +
+                ", assignees=" + assignees +
+                ", storyPoints=" + storyPoints +
+                ", state=" + state +
+                '}';
     }
 }

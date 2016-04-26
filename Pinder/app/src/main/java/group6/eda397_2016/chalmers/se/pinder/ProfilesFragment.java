@@ -8,10 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ListView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import group6.eda397_2016.chalmers.se.pinder.listhelpers.ProfileAdapter;
@@ -34,7 +32,7 @@ public class ProfilesFragment extends Fragment {
 
 
         final ArrayAdapter adapter = new ProfileAdapter(getActivity(),
-                R.layout.profilelistelement, profiles);
+                R.layout.listelement, profiles);
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

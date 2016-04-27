@@ -10,24 +10,24 @@ public class TrelloAPIConsumer {
     //just naming possible functions
     public static void fetchTeams(String username){
         String getTeamsURL = trelloAPIUrl+username+"/organizations?fields=name";
-
+        //this will return ids and names
     }
     public static void fetchTeamMembers(String teamName){
         String getTeamMembersURL = trelloAPIUrl+"organizations/"+teamName+"/members?fields=fullName"+keyAndToken;
-
+        //this will return ids and names
     }
     public static void fetchBoards(String teamName){
         String getTeamBoardsURL = trelloAPIUrl+"organizations/"+teamName+"/boards?fields=Name"+keyAndToken;
-
+        //this will return ids and names
     }
 
     public static void fetchBoardLists(String boardID){
         String getBoardListsURL= trelloAPIUrl+"boards/"+boardID+"?lists=open&fields=name&list_fields=name"+keyAndToken;
-
+        //this will return ids and names
     }
     public static void fetchListTasks(String listID){
         String getListTasks = trelloAPIUrl+"lists/"+listID+"?fields=name&cards=open&card_fields=name"+keyAndToken;
-
+        //this will return ids and names
     }
 
     public static void setAuthToken(String token)

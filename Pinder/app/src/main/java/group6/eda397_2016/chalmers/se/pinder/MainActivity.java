@@ -12,6 +12,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
+import group6.eda397_2016.chalmers.se.pinder.TrelloInteraction.TrelloAPIConsumer;
 import group6.eda397_2016.chalmers.se.pinder.dao.Database;
 
 public class MainActivity extends AppCompatActivity {
@@ -74,12 +78,18 @@ public class MainActivity extends AppCompatActivity {
 
     }
     public void showProfiles(View view){
+        ArrayList<HashMap<String, String>> test = new ArrayList<>();
         //view list of profiles, get data from database and show in fragment used below
         fragmentTransaction= getFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.activity_main, profilesFragment);
         fragmentTransaction.addToBackStack("");
         fragmentTransaction.commit();
         actionBar.setDisplayHomeAsUpEnabled(true);
+        test =TrelloAPIConsumer.fetchTeamMembers("agilesoftwaredevgroup6");
+        for (int i=0; i<test.size();i++)
+        {
+            System.out.println(test.get(i).values());
+        }
 
     }
     public void signOut(View view){

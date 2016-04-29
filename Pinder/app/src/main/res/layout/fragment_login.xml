@@ -1,73 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:id="@+id/fragment_login"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/fragment_login">
+    android:orientation="vertical">
 
 
     <TextView
+        android:id="@+id/textView"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Pinder"
-        android:id="@+id/textView"
-        android:textSize="55dp"
+        android:layout_marginBottom="50dp"
         android:layout_marginTop="50dp"
         android:gravity="center"
-        android:layout_marginBottom="50dp" />
+        android:text="Pinder"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textSize="55dp" />
 
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_gravity="center_vertical">
+        android:layout_gravity="center_vertical"
+        android:orientation="vertical">
 
         <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:id="@+id/editText4"
-            android:hint="Enter username..."
-            android:singleLine="true"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="20dp" />
-
-        <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:inputType="textPassword"
-            android:ems="10"
-            android:id="@+id/editText5"
-            android:hint="Enter password..."
             android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="20dp" />
+            android:layout_marginBottom="20dp"
+            android:hint="Enter username..."
+            android:singleLine="true" />
+
+        <EditText
+            android:id="@+id/editText5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="20dp"
+            android:ems="10"
+            android:hint="Enter password..."
+            android:inputType="textPassword" />
 
         <LinearLayout
-            android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
             android:gravity="center_horizontal"
-            android:layout_marginBottom="20dp">
+            android:orientation="horizontal">
 
             <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Register"
                 android:id="@+id/button"
-                android:onClick="register"
-                android:background="@color/colorSecondary"
-                android:textColor="@color/white"
-                android:layout_margin="5dp" />
-
-            <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Sign in"
+                android:layout_margin="5dp"
+                android:background="@color/colorSecondary"
+                android:onClick="register"
+                android:text="Register"
+                android:textColor="@color/white" />
+
+            <Button
                 android:id="@+id/button2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:background="@color/colorPrimary"
                 android:gravity="center"
                 android:onClick="login"
-                android:background="@color/colorPrimary"
-                android:textColor="@color/white"
-                android:layout_margin="5dp"/>
+                android:text="Sign in"
+                android:textColor="@color/white" />
         </LinearLayout>
 
     </LinearLayout>

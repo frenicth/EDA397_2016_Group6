@@ -10,11 +10,10 @@ import android.widget.Toast;
 public class TrelloAuth {
     public final static String appKey = "c007e8e064afd2378471b337d02b32a3";
     public final static String appName = "Pinder";
-    public final static String expiration = "never";
+    public final static String expiration = "1hour";
     public final static String callbackMethod = "fragment";
     public final static String returnUrl = "ase://oauthresponse";
-    public final static String trelloAuthorizeUrl = "https://trello.com/1/authorize?expiration="+expiration+"&name="+appName+"&key="+appKey+"&callback_method="+callbackMethod+"&return_url="+returnUrl;
-
+    public final static String trelloAuthorizeUrl = "https://trello.com/1/authorize?expiration=" + expiration + "&name=" + appName + "&key=" + appKey + "&callback_method=" + callbackMethod + "&return_url=" + returnUrl;
 
 
 }

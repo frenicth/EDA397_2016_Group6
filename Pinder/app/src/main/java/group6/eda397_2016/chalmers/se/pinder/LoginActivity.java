@@ -13,7 +13,6 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
 import android.app.Activity;
-import android.app.ActionBar;
 import android.widget.Toast;
 
 import group6.eda397_2016.chalmers.se.pinder.TrelloInteraction.TrelloAPIConsumer;
@@ -23,7 +22,6 @@ import group6.eda397_2016.chalmers.se.pinder.TrelloInteraction.TrelloAuth;
  * Created by fredrikholmdahl on 16-04-20.
  */
 public class LoginActivity extends Activity {
-    public ActionBar actionBar;
     public LoginFragment loginFragment;
     public RegisterFragment registerFragment;
     FragmentManager fragmentManager = getFragmentManager();
@@ -35,9 +33,6 @@ public class LoginActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
-        /*actionBar = getActionBar();
-        actionBar.hide();*/
 
         loginFragment = new LoginFragment();
         registerFragment = new RegisterFragment();

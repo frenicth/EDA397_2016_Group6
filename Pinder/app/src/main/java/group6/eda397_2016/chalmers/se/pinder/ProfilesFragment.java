@@ -23,16 +23,15 @@ public class ProfilesFragment extends Fragment {
     private View view;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState)
+    {
         // Inflate the layout for login
         view = inflater.inflate(R.layout.fragment_profiles, container, false);
         ListView listView = (ListView)view.findViewById(R.id.profileList);
         List<Profile> profiles = ((PinderApplication)getActivity().getApplication()).getDatabase().getAllProfiles();
 
 
-        final ArrayAdapter adapter = new ProfileAdapter(getActivity(),
-                R.layout.listelement, profiles);
+        final ArrayAdapter adapter = new ProfileAdapter(getActivity(),R.layout.listelement, profiles);
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

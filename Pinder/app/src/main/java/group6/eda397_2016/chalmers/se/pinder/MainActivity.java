@@ -34,15 +34,15 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(false);
-
         mainFragment = new MainFragment();
         profilesFragment = new ProfilesFragment();
         tasksFragment = new TasksFragment();
         userProfileFragment = new UserProfileFragment();
-
+        TrelloAPIConsumer.fetchUserProfile("me", this.getApplicationContext());
+        TrelloAPIConsumer.fetchTeamMembers(this.getApplicationContext());
+        TrelloAPIConsumer.fetchBackLogTasks(this.getApplicationContext());
         fragmentManager.beginTransaction().add(R.id.activity_main, mainFragment).commit();
 
     }
@@ -80,18 +80,13 @@ public class MainActivity extends AppCompatActivity {
 
     }
     public void showProfiles(View view){
-        ArrayList<HashMap<String, String>> test = new ArrayList<>();
+
         //view list of profiles, get data from database and show in fragment used below
         fragmentTransaction= getFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.activity_main, profilesFragment);
         fragmentTransaction.addToBackStack("");
         fragmentTransaction.commit();
         actionBar.setDisplayHomeAsUpEnabled(true);
-        test =TrelloAPIConsumer.fetchTeamMembers("agilesoftwaredevgroup6");
-        for (int i=0; i<test.size();i++)
-        {
-            System.out.println(test.get(i).values());
-        }
 
     }
     public void signOut(View view){

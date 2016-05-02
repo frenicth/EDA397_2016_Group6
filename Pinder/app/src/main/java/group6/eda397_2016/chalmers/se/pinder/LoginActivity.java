@@ -6,10 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
 import android.app.Activity;
@@ -73,7 +70,6 @@ public class LoginActivity extends Activity {
 
         if (!authtoken.equals("empty")) {
             Toast.makeText(this, "already authorized", Toast.LENGTH_LONG).show();
-            TrelloAPIConsumer.setAuthToken(authtoken);
             isAuthenticated = true;
         } else {
             try {
@@ -105,11 +101,10 @@ public class LoginActivity extends Activity {
                 sharedPreferences = this.getSharedPreferences("authorizeprefs", Context.MODE_PRIVATE);
                 code = uriParts[1];
                 sharedPreferences.edit().putString("authtoken", code).apply();
-                TrelloAPIConsumer.setAuthToken(code);
                 returnFromAuth = true;
             }
             Toast.makeText(this, "Login successful.", Toast.LENGTH_LONG).show();
-            Toast.makeText(this, code, Toast.LENGTH_LONG).show();
+            Toast.makeText(this,"token: "+ code, Toast.LENGTH_LONG).show();
 
         }
         return returnFromAuth;

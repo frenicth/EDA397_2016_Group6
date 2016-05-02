@@ -12,11 +12,13 @@ import group6.eda397_2016.chalmers.se.pinder.model.Task;
  * or inserting new elements into the database.
  */
 public interface Database {
-    public List<Task> getAllTasks();
-    public List<Profile> getAllProfiles();
-    public void createProfile(Profile profile);
-    public void createTask(Task task);
-    public void assignProfilesToTask(List<Profile> profiles, Task task);
-    public Task getTaskById(int id);
-    public Profile getProfileById(int id);
+     List<Task> getAllTasks();
+     List<Profile> getAllProfiles();
+     void createProfile(Profile profile);
+     void createTask(Task task);
+     void assignProfilesToTask(List<Profile> profiles, Task task);
+     Task getTaskById(int id);
+     Profile getProfileById(int id);
+     void setCurrentUser(Profile profile);
+     Profile getCurrentUser();
 }

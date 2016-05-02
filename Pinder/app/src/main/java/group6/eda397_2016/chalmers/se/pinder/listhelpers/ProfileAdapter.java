@@ -32,11 +32,11 @@ public class ProfileAdapter extends ArrayAdapter<Profile>{
             TextView skillset = (TextView)convertView.findViewById(R.id.listElemDescription);
             title.setText(profile.getName());
             String skills = "";
-            for (int i = 0; i < profile.getSkills().size();i++){
-                if(i != profile.getSkills().size() - 1) {
-                    skills += profile.getSkills().get(i).name() + ", ";
-                }else{
-                    skills += profile.getSkills().get(i).name();
+            if (!profile.getSkills().isEmpty())
+            {
+                for(String s:profile.getSkills())
+                {
+                    skills+=s +"  ";
                 }
             }
             skillset.setText(skills);

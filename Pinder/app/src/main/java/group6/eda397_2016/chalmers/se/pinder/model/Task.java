@@ -1,81 +1,134 @@
 package group6.eda397_2016.chalmers.se.pinder.model;
 
+import android.util.Log;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class Task {
-    private int id;
+    private String id;
     private String name;
     private String description;
-    private List<Skill> mandatoryRequirements;
-    private List<Skill> recommendedRequirements;
-    private List<Profile> assignees;
+    private List<String> requiredSkills;
+    private List<Profile> assignedMembers;
     private int storyPoints;
-    private State state;
+    //private State state;
+    //private List<Skill> recommendedRequirements;
 
-    public Task() {
+    public Task (){}
+
+    public Task(String id, String nameandpoints, String desc) {
+        this.id = id;
+        if (nameandpoints.startsWith("("))
+        {
+            try {
+                this.name = nameandpoints.substring(4);
+                this.storyPoints = Integer.parseInt(nameandpoints.substring(1, 2));
+                }
+            catch (Exception e)
+            {
+                Log.e("Task Creation", "Not expected format for name in Task: " + id);
+            }
+            finally
+            {
+                this.name = nameandpoints;
+                this.storyPoints=0;
+            }
+        }
+        else
+        {
+            this.name=nameandpoints;
+        }
+
+        if (!desc.isEmpty())
+        {
+            if (desc.contains("Required Skills"))
+            {
+                try
+                {
+                    String skills = desc.substring(desc.lastIndexOf(":") + 1);
+                    this.requiredSkills.add(skills);
+                    this.description = desc.substring(4, desc.indexOf("Required") - 1);
+                }
+                catch (Exception e)
+                {Log.e("Task Creation", "Not expected format for desc in Task: " + name);}
+                finally
+                { this.description = description; }
+            }
+            else this.description=desc;
+        }
+
     }
 
-    public Task(int id, String name, String description, int storyPoints) {
+    public Task(String id, String name, String description, int storyPoints)
+    {
         this.id = id;
         this.name = name;
         this.description = description;
-        this.storyPoints = storyPoints;
+        this.storyPoints=storyPoints;
+        this.assignedMembers = new ArrayList<>();
+        this.requiredSkills = new ArrayList<>();
+
     }
 
-    public String getName() {
+    public String getName()
+    {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDescription() {
+    public String getDescription()
+    {
         return description;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+
+    public List<String> getRequiredSkills()
+    {
+        return requiredSkills;
     }
 
-    public List<Skill> getMandatoryRequirements() {
-        return mandatoryRequirements;
+    public void setRequiredSkills(String skill)
+    {
+        if (skill.contains(","))
+        {
+            String [] temp = skill.split(",");
+            for (int i=0;i<temp.length;i++)
+            {
+                if (temp[i]!=null)
+                    requiredSkills.add(temp[i]);
+            }
+        }
+        else
+        {
+            requiredSkills.add(skill);
+        }
     }
 
-    public void setMandatoryRequirements(List<Skill> mandatoryRequirements) {
-        this.mandatoryRequirements = mandatoryRequirements;
+
+    public List<Profile> getAssignees()
+    {
+        return assignedMembers;
     }
 
-    public List<Skill> getRecommendedRequirements() {
-        return recommendedRequirements;
+    public boolean assignMember(Profile profile)
+    {
+        if (this.assignedMembers.size()<2)
+        {
+            assignedMembers.add(profile);
+            return true;
+        }
+        else return false;
+
     }
 
-    public void setRecommendedRequirements(List<Skill> recommendedRequirements) {
-        this.recommendedRequirements = recommendedRequirements;
-    }
-
-    public List<Profile> getAssignees() {
-        return assignees;
-    }
-
-    public void setAssignees(List<Profile> assignees) {
-        this.assignees = assignees;
-    }
-
-    public int getStoryPoints() {
+    public int getStoryPoints()
+    {
         return storyPoints;
     }
 
-    public void setStoryPoints(int storyPoints) {
-        this.storyPoints = storyPoints;
-    }
-
-    public State getState() {
-        return state;
-    }
-
-    public void setState(State state) {
-        this.state = state;
+    public String getId()
+    {
+        return this.id;
     }
 
     @Override
@@ -84,11 +137,9 @@ public class Task {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
-                ", mandatoryRequirements=" + mandatoryRequirements +
-                ", recommendedRequirements=" + recommendedRequirements +
-                ", assignees=" + assignees +
+                ", mandatoryRequirements=" + requiredSkills +
+                ", assignees=" + assignedMembers +
                 ", storyPoints=" + storyPoints +
-                ", state=" + state +
                 '}';
     }
 }

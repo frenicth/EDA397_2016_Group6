@@ -16,7 +16,7 @@ public class Task {
     //private List<Skill> recommendedRequirements;
 
     public Task (){}
-
+//TODO : refine string parsing, lower case for tags and handle some errors.
     public Task(String id, String nameandpoints, String desc) {
         this.id = id;
         nameandpoints.trim();
@@ -81,7 +81,6 @@ public class Task {
     {
         return description;
     }
-
 
     public List<String> getRequiredSkills()
     {

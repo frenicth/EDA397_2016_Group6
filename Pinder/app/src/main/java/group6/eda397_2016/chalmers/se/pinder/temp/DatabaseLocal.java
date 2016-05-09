@@ -95,4 +95,9 @@ public class DatabaseLocal implements Database{
         return this.currentUser;
     }
 
+    public void clearDB()
+    {
+     // TODO  might need to clear db when logging out. Will have to test
+    }
+
 }

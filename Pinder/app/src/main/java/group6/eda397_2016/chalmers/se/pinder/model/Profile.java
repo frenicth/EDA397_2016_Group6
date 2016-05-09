@@ -12,7 +12,7 @@ public class Profile {
     private String bio;
 
     public Profile () {}
-
+    //TODO : refine string parsing, lower case for tags and handle some errors.
     public Profile(String id, String name) {
         this.id = id;
         this.name = name;

@@ -35,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Database database = ((PinderApplication)getApplication()).getDatabase();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         actionBar = getSupportActionBar();
@@ -43,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
         profilesFragment = new ProfilesFragment();
         tasksFragment = new TasksFragment();
         userProfileFragment = new UserProfileFragment();
+        database.clearDB();
         TrelloAPIConsumer.fetchUserProfile("me", this.getApplicationContext());
         TrelloAPIConsumer.fetchTeamMembers(this.getApplicationContext());
         TrelloAPIConsumer.fetchBackLogTasks(this.getApplicationContext());

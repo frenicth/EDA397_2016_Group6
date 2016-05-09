@@ -19,6 +19,8 @@ public class Task {
 //TODO : refine string parsing, lower case for tags and handle some errors.
     public Task(String id, String nameandpoints, String desc) {
         this.id = id;
+        this.assignedMembers = new ArrayList<>();
+        this.requiredSkills = new ArrayList<>();
         nameandpoints.trim();
         if (nameandpoints.startsWith("("))
         {

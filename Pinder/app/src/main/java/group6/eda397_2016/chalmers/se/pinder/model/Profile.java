@@ -5,14 +5,17 @@ import android.util.Log;
 import java.util.ArrayList;
 import java.util.List;
 
+import group6.eda397_2016.chalmers.se.pinder.TrelloInteraction.TrelloAPIConsumer;
+
 public class Profile {
     private String id;
     private String name;
     private List<String> skills;
     private String bio;
 
+    //Constructors
     public Profile () {}
-    //TODO : refine string parsing, lower case for tags and handle some errors.
+
     public Profile(String id, String name) {
         this.id = id;
         this.name = name;
@@ -25,6 +28,11 @@ public class Profile {
         this.skills = new ArrayList<>();
         parseBio(bio);
     }
+
+
+    //get/set methods
+    public String getId()
+    {return this.id;}
 
     public String getName()
     {
@@ -41,6 +49,23 @@ public class Profile {
         return skills;
     }
 
+    public String getBio(){return this.bio;}
+
+    public String getBioForTrello()
+    {   String  updatedBio = bio;
+        if (!skills.isEmpty()) {
+            updatedBio+= "\nSkills: ";
+            for (String s : skills) {
+                updatedBio += s + ",";
+            }
+            updatedBio = updatedBio.substring(0, updatedBio.length() - 1);
+        }
+
+        return updatedBio;
+    }
+
+
+    //other method
 
     public void addSkill(String skill)
     {
@@ -90,10 +115,14 @@ public class Profile {
             }
 
         }
+        else bio="";
     }
 
-    public String getId()
-    {return this.id;}
+
+
+
+
+
     @Override
     public String toString() {
         String ret = name + " Skills: ";

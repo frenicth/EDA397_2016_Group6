@@ -43,7 +43,6 @@ public class TrelloAPIConsumer {
         SharedPreferences sharedPref = context.getApplicationContext().getSharedPreferences("authorizeprefs", Context.MODE_PRIVATE);
         String authToken = sharedPref.getString("authtoken", "empty");
         String getUserProfile = trelloAPIUrl + "members/" + username + "?fields=fullName,bio" + appKeyandToken + authToken;
-        Log.v("KYR String to Trello:", getUserProfile);
         makeJSONRequest(getUserProfile,TYPE_USER,  context);
     }
 

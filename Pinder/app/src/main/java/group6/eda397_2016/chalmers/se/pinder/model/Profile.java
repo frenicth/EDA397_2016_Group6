@@ -63,11 +63,21 @@ public class Profile {
     {
         if (!bio.isEmpty())
         {
+            bio.trim();
             if (bio.contains("Skills")) {
                 try {
-                    String skills = bio.substring((bio.lastIndexOf(":")+1));
-                    this.addSkill(skills);
-                    this.bio = bio.substring(0, bio.indexOf("Skills") - 1);
+                    if (bio.startsWith("Skills"))
+                    {
+                        String skills = bio.substring((bio.lastIndexOf(":")+1));
+                        this.addSkill(skills);
+                        this.bio = "";
+                    }
+                    else
+                    {
+                        String skills = bio.substring((bio.lastIndexOf(":") + 1));
+                        this.addSkill(skills);
+                        this.bio = bio.substring(0, bio.indexOf("Skills") - 1);
+                    }
                 }
                 catch (Exception e)
                 { Log.e("Profile Creation", "Not expected format for bio in Profile: " + this.name); }

@@ -36,8 +36,7 @@ public class TasksFragment extends Fragment{
         view = inflater.inflate(R.layout.fragment_tasks, container, false);
         ListView listView = (ListView)view.findViewById(R.id.taskList);
         List<Task> tasks = ((PinderApplication)getActivity().getApplication()).getDatabase().getAllTasks();
-        final ArrayAdapter adapter = new TaskAdapter(getActivity(),
-                R.layout.listelement, tasks);
+        final ArrayAdapter adapter = new TaskAdapter(getActivity(), R.layout.listelement, tasks);
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

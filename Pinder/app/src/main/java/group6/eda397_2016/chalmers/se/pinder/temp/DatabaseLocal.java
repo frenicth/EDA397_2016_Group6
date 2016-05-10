@@ -25,13 +25,6 @@ public class DatabaseLocal implements Database {
     private DatabaseLocal() {
         profiles = new ArrayList<>();
         tasks = new ArrayList<>();
-        //List<Skill> skills = new ArrayList<>();
-        //skills.add(Skill.CPlusPlus);
-        //skills.add(Skill.Java);
-        //profiles.add(new Profile(0,"John Doe",skills1));
-        //profiles.add(new Profile(1,"Jane Doe",new ArrayList<Skill>()));
-        //tasks.add(new Task(0,"Task 1","The first task",5));
-        //tasks.add(new Task(1,"Task 2","The second task",3));
     }
 
     public synchronized static DatabaseLocal getInstance() {
@@ -68,14 +61,32 @@ public class DatabaseLocal implements Database {
         //TODO
     }
 
-    @Override
-    public Task getTaskById(int id) {
-        return null;
+
+    public Task getTaskById(String id)
+    {
+        Task task = null;
+        for (Task t:tasks)
+        {
+            if (t.getId().equals(id))
+            {
+                task=t;
+            }
+        }
+        return task;
     }
 
-    @Override
-    public Profile getProfileById(int id) {
-        return null;
+
+    public Profile getProfileById(String id)
+    {
+        Profile profile = null;
+        for (Profile p:profiles)
+        {
+            if (p.getId().equals(id))
+            {
+                profile=p;
+            }
+        }
+        return profile;
     }
 
     public void setCurrentUser(Profile profile) {
@@ -128,4 +139,11 @@ public class DatabaseLocal implements Database {
 
         return matchingTasks;
     }
+    public void clearDB()
+    {
+        this.tasks.clear();
+        this.profiles.clear();
+        this.currentUser = null;
+    }
+
 }

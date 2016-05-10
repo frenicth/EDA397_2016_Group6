@@ -2,6 +2,9 @@ package group6.eda397_2016.chalmers.se.pinder;
 
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.support.v4.app.NavUtils;
@@ -32,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Database database = ((PinderApplication)getApplication()).getDatabase();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         actionBar = getSupportActionBar();
@@ -40,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
         profilesFragment = new ProfilesFragment();
         tasksFragment = new TasksFragment();
         userProfileFragment = new UserProfileFragment();
+        database.clearDB();
         TrelloAPIConsumer.fetchUserProfile("me", this.getApplicationContext());
         TrelloAPIConsumer.fetchTeamMembers(this.getApplicationContext());
         TrelloAPIConsumer.fetchBackLogTasks(this.getApplicationContext());
@@ -90,7 +95,11 @@ public class MainActivity extends AppCompatActivity {
 
     }
     public void signOut(View view){
-        Toast.makeText(MainActivity.this, "Can't log out right now", Toast.LENGTH_SHORT).show();
+        SharedPreferences sharedPreferences = this.getSharedPreferences("authorizeprefs", Context.MODE_PRIVATE);
+        sharedPreferences.edit().putString("authtoken", "empty").apply();
+        Toast.makeText(MainActivity.this, "You are now logged out", Toast.LENGTH_SHORT).show();
+        Intent log = new Intent(this, LoginActivity.class);
+        startActivity(log);
     }
 
     /*old, might not need

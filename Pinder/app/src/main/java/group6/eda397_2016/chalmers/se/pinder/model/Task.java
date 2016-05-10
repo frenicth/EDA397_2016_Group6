@@ -16,9 +16,12 @@ public class Task {
     //private List<Skill> recommendedRequirements;
 
     public Task (){}
-
+//TODO : refine string parsing, lower case for tags and handle some errors.
     public Task(String id, String nameandpoints, String desc) {
         this.id = id;
+        this.assignedMembers = new ArrayList<>();
+        this.requiredSkills = new ArrayList<>();
+        nameandpoints.trim();
         if (nameandpoints.startsWith("("))
         {
             try {
@@ -48,7 +51,7 @@ public class Task {
                 {
                     String skills = desc.substring(desc.lastIndexOf(":") + 1);
                     this.requiredSkills.add(skills);
-                    this.description = desc.substring(4, desc.indexOf("Required") - 1);
+                    this.description = desc.substring(0, desc.indexOf("Required") - 1);
                 }
                 catch (Exception e)
                 {Log.e("Task Creation", "Not expected format for desc in Task: " + name);}
@@ -80,7 +83,6 @@ public class Task {
     {
         return description;
     }
-
 
     public List<String> getRequiredSkills()
     {

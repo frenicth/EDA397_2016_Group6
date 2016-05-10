@@ -17,8 +17,9 @@ public interface Database {
      void createProfile(Profile profile);
      void createTask(Task task);
      void assignProfilesToTask(List<Profile> profiles, Task task);
-     Task getTaskById(int id);
-     Profile getProfileById(int id);
+     Task getTaskById(String id);
+     Profile getProfileById(String id);
      void setCurrentUser(Profile profile);
      Profile getCurrentUser();
+     void clearDB();
 }

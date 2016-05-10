@@ -12,9 +12,12 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.List;
 
+import group6.eda397_2016.chalmers.se.pinder.TrelloInteraction.TrelloAPIConsumer;
+import group6.eda397_2016.chalmers.se.pinder.dao.Database;
 import group6.eda397_2016.chalmers.se.pinder.listhelpers.ProfileAdapter;
 import group6.eda397_2016.chalmers.se.pinder.listhelpers.TaskAdapter;
 import group6.eda397_2016.chalmers.se.pinder.model.Profile;
@@ -35,14 +38,20 @@ public class TasksFragment extends Fragment{
         // Inflate the layout for login
         view = inflater.inflate(R.layout.fragment_tasks, container, false);
         ListView listView = (ListView)view.findViewById(R.id.taskList);
-        List<Task> tasks = ((PinderApplication)getActivity().getApplication()).getDatabase().getAllTasks();
+        final Database db = ((PinderApplication) getActivity().getApplication()).getDatabase();
+        List<Task> tasks = db.getMatchingTasks();
         final ArrayAdapter adapter = new TaskAdapter(getActivity(), R.layout.listelement, tasks);
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 final Task item = (Task) parent.getItemAtPosition(position);
-                Log.i(getClass().getName(),item.toString());
+                boolean result =item.assignMember(db.getCurrentUser());
+                if (result) {
+                    TrelloAPIConsumer.addMemberToTask(getActivity().getApplicationContext(), item);
+                }
+                else
+                    Toast.makeText(getActivity(), "This task is already assigned to a pair", Toast.LENGTH_SHORT).show();
             }
         });
 

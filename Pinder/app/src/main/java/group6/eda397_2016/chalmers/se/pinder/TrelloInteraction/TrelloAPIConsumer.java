@@ -72,10 +72,10 @@ public class TrelloAPIConsumer {
         makeJSONArrayRequest(getAssignedMembers,TAG_ASSIGNEDMEMBERS,taskID, context );
     }
 
-    public static void addMemberToTask(Context context, Task task, Profile profile){
+    public static void addMemberToTask(Context context, Task task){
         SharedPreferences sharedPref = context.getApplicationContext().getSharedPreferences("authorizeprefs", Context.MODE_PRIVATE);
         String authToken = sharedPref.getString("authtoken", "empty");
-        String addMember = trelloAPIUrl+ "cards/"+task.getId()+"/idMembers?value="+profile.getId()+appKeyandToken+authToken;
+        String addMember = trelloAPIUrl+ "cards/"+task.getId()+"/idMembers?value="+task.getAssignedMemebers()+appKeyandToken+authToken;
         makeJSONRequest(PUT,addMember,null, context);
     }
 

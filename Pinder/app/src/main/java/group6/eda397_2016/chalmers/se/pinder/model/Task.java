@@ -123,6 +123,18 @@ public class Task {
 
     }
 
+    public String getAssignedMemebers()
+    {
+        String members = "";
+        if (!assignedMembers.isEmpty()) {
+            for (Profile p : assignedMembers) {
+                members += p.getId() + ",";
+            }
+            members =members.substring(0, members.length() - 1);
+        }
+        return members;
+    }
+
     public int getStoryPoints()
     {
         return storyPoints;
@@ -139,8 +151,8 @@ public class Task {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
-                ", mandatoryRequirements=" + requiredSkills +
-                ", assignees=" + assignedMembers +
+                ", Required Skills=" + requiredSkills +
+                ", assigned members=" + assignedMembers +
                 ", storyPoints=" + storyPoints +
                 '}';
     }

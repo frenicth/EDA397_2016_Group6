@@ -120,9 +120,7 @@ public class DatabaseLocal implements Database {
         }
         return null;
     }
-    public List<Task> getMatchingTasks(Task t){
-        List<Task> matchingTask = new ArrayList<>();
-        List<Profile> users = this.getAllProfiles();
+    public List<Task> getMatchingTasks(){
         List<Task> tasks = this.getAllTasks();
 
             Collections.sort(tasks, new Comparator<Task>() {

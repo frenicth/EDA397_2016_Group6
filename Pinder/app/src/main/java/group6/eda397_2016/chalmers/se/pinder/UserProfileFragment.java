@@ -23,7 +23,7 @@ public class UserProfileFragment extends Fragment {
     {
         // Inflate the layout for login
         view = inflater.inflate(R.layout.fragment_userprofile, container, false);
-        List<Task> tasks = ((PinderApplication)getActivity().getApplication()).getDatabase().getMatchingTasks(null);
+        List<Task> tasks = ((PinderApplication)getActivity().getApplication()).getDatabase().getMatchingTasks();
         for (Task t : tasks){
             Log.i(this.getClass().getName(), t.toString());
         }

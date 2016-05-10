@@ -50,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
         TrelloAPIConsumer.fetchBackLogTasks(this.getApplicationContext());
         fragmentManager.beginTransaction().add(R.id.activity_main, mainFragment).commit();
 
+
     }
 
     @Override

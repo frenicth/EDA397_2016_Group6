@@ -3,6 +3,8 @@ package group6.eda397_2016.chalmers.se.pinder.temp;
 import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import group6.eda397_2016.chalmers.se.pinder.dao.Database;
@@ -119,26 +121,37 @@ public class DatabaseLocal implements Database {
         return null;
     }
     public List<Task> getMatchingTasks(Task t){
-        List<Task> matchingTasks = new ArrayList<>();
+        List<Task> matchingTask = new ArrayList<>();
         List<Profile> users = this.getAllProfiles();
         List<Task> tasks = this.getAllTasks();
-        for(Task task : tasks){
-            for(String requiredSkills : task.getRequiredSkills()){
-                for(String skill : this.currentUser.getSkills()){
-                    if(skill.equals(requiredSkills)) {
-                        System.out.println("We have a match");
-                        /**
-                         * TODO: Return this task
-                         * This is a task which required skills matches the
-                         * current users skills.
-                         */
-                    }
+
+            Collections.sort(tasks, new Comparator<Task>() {
+                @Override
+                public int compare(Task lhs, Task rhs) {
+                    return rateTask(lhs) - rateTask(rhs);
+                }
+            });
+
+        return tasks;
+    }
+    private int rateTask(Task task){
+        int counter = 0;
+        for(String requiredSkill : task.getRequiredSkills()){
+            for(String skill : this.currentUser.getSkills()){
+                if(skill.trim().equals(requiredSkill.trim())) {
+                    System.out.println("We have a match");
+                    counter++;
+                    /**
+                     * TODO: Return this task
+                     * This is a task which required skills matches the
+                     * current users skills.
+                     */
                 }
             }
         }
-
-        return matchingTasks;
+        return counter;
     }
+
     public void clearDB()
     {
         this.tasks.clear();

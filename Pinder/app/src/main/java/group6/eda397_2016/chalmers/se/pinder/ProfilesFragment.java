@@ -1,6 +1,6 @@
 package group6.eda397_2016.chalmers.se.pinder;
 
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -21,6 +21,7 @@ import group6.eda397_2016.chalmers.se.pinder.model.Profile;
 public class ProfilesFragment extends Fragment {
 
     private View view;
+    private static final String ARG_SECTION_NUMBER = "section_number";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState)
@@ -42,6 +43,13 @@ public class ProfilesFragment extends Fragment {
         });
 
         return view;
+    }
+    public static ProfilesFragment newInstance() {
+        ProfilesFragment fragment = new ProfilesFragment();
+        //Bundle args = new Bundle();
+        //args.putInt(ARG_SECTION_NUMBER, sectionNumber);
+        //fragment.setArguments(args);
+        return fragment;
     }
 
 }

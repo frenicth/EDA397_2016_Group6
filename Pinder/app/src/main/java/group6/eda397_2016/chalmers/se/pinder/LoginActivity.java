@@ -36,7 +36,7 @@ public class LoginActivity extends Activity {
 
 
         if(checkOAuthReturn(getIntent())){
-            Intent loginIntent = new Intent(LoginActivity.this, MainActivity.class);
+            Intent loginIntent = new Intent(LoginActivity.this, Main2Activity.class);
             startActivity(loginIntent);
         }else{
             fragmentManager.beginTransaction().add(R.id.activity_login, loginFragment).commit();
@@ -60,7 +60,7 @@ public class LoginActivity extends Activity {
     public void login(View view) {
 
         if (authorizeUserWithTrello()) {
-            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+            Intent intent = new Intent(LoginActivity.this, Main2Activity.class);
             startActivity(intent);
         }
     }

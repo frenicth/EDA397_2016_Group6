@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
-
+    /*
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
         Log.i(this.getClass().getName(), database.getAllTasks().size() + "");
 
         fragmentTransaction= getFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.activity_main, tasksFragment);
+        //fragmentTransaction.replace(R.id.activity_main, tasksFragment);
         fragmentTransaction.addToBackStack("");
         fragmentTransaction.commit();
         actionBar.setDisplayHomeAsUpEnabled(true);
@@ -79,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
     public void viewProfile(View view){
         //view you own profile, get data from database and show in fragment used below
         fragmentTransaction= getFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.activity_main, userProfileFragment);
+        //fragmentTransaction.replace(R.id.activity_main, userProfileFragment);
         fragmentTransaction.addToBackStack("");
         fragmentTransaction.commit();
         actionBar.setDisplayHomeAsUpEnabled(true);
@@ -89,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
 
         //view list of profiles, get data from database and show in fragment used below
         fragmentTransaction= getFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.activity_main, profilesFragment);
+        //fragmentTransaction.replace(R.id.activity_main, profilesFragment);
         fragmentTransaction.addToBackStack("");
         fragmentTransaction.commit();
         actionBar.setDisplayHomeAsUpEnabled(true);
@@ -103,22 +103,17 @@ public class MainActivity extends AppCompatActivity {
         startActivity(log);
     }
 
-    /*old, might not need
-    public void backTopPrev(View view){
-        fragmentManager.popBackStack();
-        actionBar.setDisplayHomeAsUpEnabled(false);
-    }*/
-
     @Override
     public void onBackPressed() {
         if (getFragmentManager().getBackStackEntryCount() > 0) {
             getFragmentManager().popBackStack();
             actionBar.setDisplayHomeAsUpEnabled(false);
         } else {
-            /*we don't want back navigation to go back to the login screen, sign out should do be the only navigation back to
-            that screen.
-            super.onBackPressed();*/
+            //we don't want back navigation to go back to the login screen, sign out should do be the only navigation back to
+            //that screen.
+            //super.onBackPressed();
         }
     }
+    */
 
 }

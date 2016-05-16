@@ -2,20 +2,14 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/fragment_tasks">
+    android:id="@+id/fragment_tasks"
+    android:weightSum="1">
 
     <ListView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/taskList"/>
-
-    <Button
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:text="Add task"
-        android:background="@color/colorSecondary"
-        android:textColor="@color/white"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="30dp" />
+        android:id="@+id/taskList"
+        android:layout_weight="1"
+        android:layout_marginBottom="55dp" />
 
 </LinearLayout>

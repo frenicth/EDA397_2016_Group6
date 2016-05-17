@@ -88,7 +88,6 @@ public class Task {
         }
     }
 
-
     public List<Profile> getAssignees() {
         return assignedMembers;
     }

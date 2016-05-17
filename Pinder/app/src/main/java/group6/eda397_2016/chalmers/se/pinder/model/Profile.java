@@ -67,20 +67,17 @@ public class Profile {
 
     //other method
 
-    public void addSkill(String skill)
-    {
-        if (skill.contains(","))
-        {
-            String [] temp = skill.split(",");
-            for (int i=0;i<temp.length;i++)
-            {
-                if (temp[i]!=null)
-                skills.add(temp[i].trim());
+    public void addSkill(String skill) {
+        if (!skill.trim().isEmpty()) {
+            if (skill.contains(",")) {
+                String[] temp = skill.split(",");
+                for (int i = 0; i < temp.length; i++) {
+                    if (temp[i] != null)
+                        skills.add(temp[i].trim());
+                }
+            } else {
+                skills.add(skill.trim());
             }
-        }
-        else
-        {
-            skills.add(skill);
         }
     }
 

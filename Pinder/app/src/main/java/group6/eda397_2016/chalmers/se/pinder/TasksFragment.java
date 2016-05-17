@@ -1,11 +1,7 @@
 package group6.eda397_2016.chalmers.se.pinder;
 
-import android.app.ActionBar;
-import android.app.Activity;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,9 +14,7 @@ import java.util.List;
 
 import group6.eda397_2016.chalmers.se.pinder.TrelloInteraction.TrelloAPIConsumer;
 import group6.eda397_2016.chalmers.se.pinder.dao.Database;
-import group6.eda397_2016.chalmers.se.pinder.listhelpers.ProfileAdapter;
 import group6.eda397_2016.chalmers.se.pinder.listhelpers.TaskAdapter;
-import group6.eda397_2016.chalmers.se.pinder.model.Profile;
 import group6.eda397_2016.chalmers.se.pinder.model.Task;
 
 /**
@@ -57,7 +51,7 @@ public class TasksFragment extends Fragment{
                 final Task item = (Task) parent.getItemAtPosition(position);
                 boolean result =item.assignMember(db.getCurrentUser());
                 if (result) {
-                    TrelloAPIConsumer.addMemberToTask(getActivity().getApplicationContext(), item);
+                    TrelloAPIConsumer.updateAssignedMembersForTask(getActivity().getApplicationContext(), item);
                 }
                 else
                     Toast.makeText(getActivity(), "This task is already assigned to a pair", Toast.LENGTH_SHORT).show();

@@ -15,133 +15,111 @@ public class Task {
     //private State state;
     //private List<Skill> recommendedRequirements;
 
-    public Task (){}
-//TODO : refine string parsing, lower case for tags and handle some errors.
+    public Task() {
+    }
+
+    //TODO : refine string parsing, lower case for tags and handle some errors.
     public Task(String id, String nameandpoints, String desc) {
         this.id = id;
         this.assignedMembers = new ArrayList<>();
         this.requiredSkills = new ArrayList<>();
         nameandpoints.trim();
-        if (nameandpoints.startsWith("("))
-        {
+        if (nameandpoints.startsWith("(")) {
             try {
                 this.name = nameandpoints.substring(4);
-                this.storyPoints = Integer.parseInt(nameandpoints.substring(1, 2));
-                }
-            catch (Exception e)
-            {
-                Log.e("Task Creation", "Not expected format for name in Task: " + id);
-            }
-            finally
-            {
+                String temp = nameandpoints.substring(1, 2);
+                this.storyPoints = Integer.parseInt(temp);
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
                 this.name = nameandpoints;
-                this.storyPoints=0;
+                this.storyPoints = 0;
             }
-        }
-        else
-        {
-            this.name=nameandpoints;
+        } else {
+            this.name = nameandpoints;
         }
 
-        if (!desc.isEmpty())
-        {
-            if (desc.contains("Required Skills"))
-            {
-                try
-                {
+        if (!desc.isEmpty()) {
+            if (desc.contains("Required Skills")) {
+                try {
                     String skills = desc.substring(desc.lastIndexOf(":") + 1);
-                    this.requiredSkills.add(skills);
-                    this.description = desc.substring(0, desc.indexOf("Required") - 1);
+                    addRequiredSkill(skills);
+                    System.out.println(requiredSkills);
+                    this.description = desc.substring(0, desc.indexOf("Required"));
+                } catch (Exception e) {
+                    Log.e("Task Creation", "Not expected format for desc in Task: " + name);
                 }
-                catch (Exception e)
-                {Log.e("Task Creation", "Not expected format for desc in Task: " + name);}
-                finally
-                { this.description = description; }
-            }
-            else this.description=desc;
+            } else this.description = desc;
         }
 
     }
 
-    public Task(String id, String name, String description, int storyPoints)
-    {
+    public Task(String id, String name, String description, int storyPoints) {
         this.id = id;
         this.name = name;
         this.description = description;
-        this.storyPoints=storyPoints;
+        this.storyPoints = storyPoints;
         this.assignedMembers = new ArrayList<>();
         this.requiredSkills = new ArrayList<>();
 
     }
 
-    public String getName()
-    {
+    public void addRequiredSkill(String skill) {
+        if (!skill.trim().isEmpty()) {
+            if (skill.contains(",")) {
+                String[] temp = skill.split(",");
+                for (int i = 0; i < temp.length; i++) {
+                    if (temp[i] != null)
+                        requiredSkills.add(temp[i].trim());
+                }
+            } else {
+                requiredSkills.add(skill.trim());
+            }
+        }
+    }
+    public String getName() {
         return name;
     }
 
-    public String getDescription()
-    {
+    public String getDescription() {
         return description;
     }
 
-    public List<String> getRequiredSkills()
-    {
+    public List<String> getRequiredSkills() {
         return requiredSkills;
     }
 
-    public void setRequiredSkills(String skill)
-    {
-        if (skill.contains(","))
-        {
-            String [] temp = skill.split(",");
-            for (int i=0;i<temp.length;i++)
-            {
-                if (temp[i]!=null)
-                    requiredSkills.add(temp[i]);
-            }
-        }
-        else
-        {
-            requiredSkills.add(skill);
-        }
-    }
-
-
-    public List<Profile> getAssignees()
-    {
+    public List<Profile> getAssignees() {
         return assignedMembers;
     }
 
-    public boolean assignMember(Profile profile)
-    {
-        if (this.assignedMembers.size()<2)
-        {
+    public boolean assignMember(Profile profile) {
+        if (this.assignedMembers.size() < 2) {
             assignedMembers.add(profile);
             return true;
-        }
-        else return false;
+        } else return false;
 
     }
 
-    public String getAssignedMemebers()
-    {
+    public String getAssignedMembersNames() {
         String members = "";
         if (!assignedMembers.isEmpty()) {
             for (Profile p : assignedMembers) {
                 members += p.getId() + ",";
             }
-            members =members.substring(0, members.length() - 1);
+            members = members.substring(0, members.length() - 1);
         }
         return members;
     }
-
-    public int getStoryPoints()
+    public List<Profile> getAssignedMembers()
     {
+        return this.assignedMembers;
+    }
+
+    public int getStoryPoints() {
         return storyPoints;
     }
 
-    public String getId()
-    {
+    public String getId() {
         return this.id;
     }
 

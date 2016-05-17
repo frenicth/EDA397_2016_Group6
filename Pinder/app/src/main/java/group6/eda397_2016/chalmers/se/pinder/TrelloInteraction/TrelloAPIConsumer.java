@@ -76,7 +76,7 @@ public class TrelloAPIConsumer {
     public static void updateAssignedMembersForTask(Context context, Task task) {
         SharedPreferences sharedPref = context.getApplicationContext().getSharedPreferences("authorizeprefs", Context.MODE_PRIVATE);
         String authToken = sharedPref.getString("authtoken", "empty");
-        String addMember = trelloAPIUrl + "cards/" + task.getId() + "/idMembers?value=" + task.getAssignedMemebers() + appKeyandToken + authToken;
+        String addMember = trelloAPIUrl + "cards/" + task.getId() + "/idMembers?value=" + task.getAssignedMembersNames() + appKeyandToken + authToken;
         makeJsonRequest(PUT, addMember, null, context);
     }
 

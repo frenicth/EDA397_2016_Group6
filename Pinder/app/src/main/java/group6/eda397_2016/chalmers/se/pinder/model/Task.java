@@ -27,10 +27,10 @@ public class Task {
         if (nameandpoints.startsWith("(")) {
             try {
                 this.name = nameandpoints.substring(4);
-                this.storyPoints = Integer.parseInt(nameandpoints.substring(1, 2));
+                String temp = nameandpoints.substring(1, 2);
+                this.storyPoints = Integer.parseInt(temp);
             } catch (Exception e) {
-                Log.e("Task Creation", "Not expected format for name in Task: " + id);
-            } finally {
+                System.out.println(e.getMessage());
                 this.name = nameandpoints;
                 this.storyPoints = 0;
             }
@@ -42,12 +42,10 @@ public class Task {
             if (desc.contains("Required Skills")) {
                 try {
                     String skills = desc.substring(desc.lastIndexOf(":") + 1);
-                    this.requiredSkills.add(skills);
+                    addRequiredSkill(skills);
                     this.description = desc.substring(0, desc.indexOf("Required"));
                 } catch (Exception e) {
                     Log.e("Task Creation", "Not expected format for desc in Task: " + name);
-                } finally {
-                    this.description = description;
                 }
             } else this.description = desc;
         }
@@ -64,6 +62,19 @@ public class Task {
 
     }
 
+    public void addRequiredSkill(String skill) {
+        if (!skill.isEmpty()) {
+            if (skill.contains(",")) {
+                String[] temp = skill.split(",");
+                for (int i = 0; i < temp.length; i++) {
+                    if (temp[i] != null)
+                        requiredSkills.add(temp[i].trim());
+                }
+            } else {
+                requiredSkills.add(skill.trim());
+            }
+        }
+    }
     public String getName() {
         return name;
     }
@@ -74,18 +85,6 @@ public class Task {
 
     public List<String> getRequiredSkills() {
         return requiredSkills;
-    }
-
-    public void setRequiredSkills(String skill) {
-        if (skill.contains(",")) {
-            String[] temp = skill.split(",");
-            for (int i = 0; i < temp.length; i++) {
-                if (temp[i] != null)
-                    requiredSkills.add(temp[i]);
-            }
-        } else {
-            requiredSkills.add(skill);
-        }
     }
 
     public List<Profile> getAssignees() {
@@ -100,7 +99,7 @@ public class Task {
 
     }
 
-    public String getAssignedMemebers() {
+    public String getAssignedMembersNames() {
         String members = "";
         if (!assignedMembers.isEmpty()) {
             for (Profile p : assignedMembers) {
@@ -109,6 +108,10 @@ public class Task {
             members = members.substring(0, members.length() - 1);
         }
         return members;
+    }
+    public List<Profile> getAssignedMembers()
+    {
+        return this.assignedMembers;
     }
 
     public int getStoryPoints() {

@@ -9,7 +9,6 @@ import java.util.List;
 
 import group6.eda397_2016.chalmers.se.pinder.dao.Database;
 import group6.eda397_2016.chalmers.se.pinder.model.Profile;
-import group6.eda397_2016.chalmers.se.pinder.model.Skill;
 import group6.eda397_2016.chalmers.se.pinder.model.Task;
 
 
@@ -64,28 +63,22 @@ public class DatabaseLocal implements Database {
     }
 
 
-    public Task getTaskById(String id)
-    {
+    public Task getTaskById(String id) {
         Task task = null;
-        for (Task t:tasks)
-        {
-            if (t.getId().equals(id))
-            {
-                task=t;
+        for (Task t : tasks) {
+            if (t.getId().equals(id)) {
+                task = t;
             }
         }
         return task;
     }
 
 
-    public Profile getProfileById(String id)
-    {
+    public Profile getProfileById(String id) {
         Profile profile = null;
-        for (Profile p:profiles)
-        {
-            if (p.getId().equals(id))
-            {
-                profile=p;
+        for (Profile p : profiles) {
+            if (p.getId().equals(id)) {
+                profile = p;
             }
         }
         return profile;
@@ -120,23 +113,37 @@ public class DatabaseLocal implements Database {
         }
         return null;
     }
-    public List<Task> getMatchingTasks(){
+
+    public List<Task> orderTasks(){
+        List<Task> orderedTasks =  new ArrayList();
+        List<String> requiredSkills = new ArrayList<>();
+        List<String> memberSkills= new ArrayList<>();
+        for (Task t:this.getAllTasks())
+        {
+            requiredSkills = t.getRequiredSkills();
+            for (Profile p:t.getAssignedMembers())
+            {}
+        }
+        return orderedTasks;
+    }
+    public List<Task> getMatchingTasks() {
         List<Task> tasks = this.getAllTasks();
 
-            Collections.sort(tasks, new Comparator<Task>() {
-                @Override
-                public int compare(Task lhs, Task rhs) {
-                    return rateTask(lhs) - rateTask(rhs);
-                }
-            });
+        Collections.sort(tasks, new Comparator<Task>() {
+            @Override
+            public int compare(Task lhs, Task rhs) {
+                return rateTask(lhs) - rateTask(rhs);
+            }
+        });
 
         return tasks;
     }
-    private int rateTask(Task task){
+
+    private int rateTask(Task task) {
         int counter = 0;
-        for(String requiredSkill : task.getRequiredSkills()){
-            for(String skill : this.currentUser.getSkills()){
-                if(skill.trim().equals(requiredSkill.trim())) {
+        for (String requiredSkill : task.getRequiredSkills()) {
+            for (String skill : this.currentUser.getSkills()) {
+                if (skill.trim().equals(requiredSkill.trim())) {
                     System.out.println("We have a match");
                     counter++;
                     /**
@@ -150,8 +157,7 @@ public class DatabaseLocal implements Database {
         return counter;
     }
 
-    public void clearDB()
-    {
+    public void clearDB() {
         this.tasks.clear();
         this.profiles.clear();
         this.currentUser = null;

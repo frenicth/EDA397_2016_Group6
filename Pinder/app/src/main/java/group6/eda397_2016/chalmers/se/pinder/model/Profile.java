@@ -68,7 +68,7 @@ public class Profile {
     //other method
 
     public void addSkill(String skill) {
-        if (!skill.isEmpty()) {
+        if (!skill.trim().isEmpty()) {
             if (skill.contains(",")) {
                 String[] temp = skill.split(",");
                 for (int i = 0; i < temp.length; i++) {

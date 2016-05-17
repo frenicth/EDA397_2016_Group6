@@ -43,6 +43,7 @@ public class Task {
                 try {
                     String skills = desc.substring(desc.lastIndexOf(":") + 1);
                     addRequiredSkill(skills);
+                    System.out.println(requiredSkills);
                     this.description = desc.substring(0, desc.indexOf("Required"));
                 } catch (Exception e) {
                     Log.e("Task Creation", "Not expected format for desc in Task: " + name);
@@ -63,7 +64,7 @@ public class Task {
     }
 
     public void addRequiredSkill(String skill) {
-        if (!skill.isEmpty()) {
+        if (!skill.trim().isEmpty()) {
             if (skill.contains(",")) {
                 String[] temp = skill.split(",");
                 for (int i = 0; i < temp.length; i++) {

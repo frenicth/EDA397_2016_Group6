@@ -6,7 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="group6.eda397_2016.chalmers.se.pinder.MainActivity">
+    tools:context="group6.eda397_2016.chalmers.se.pinder.MainActivity"
+    android:background="@color/white">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appbar"
@@ -24,6 +25,43 @@
             app:popupTheme="@style/AppTheme.PopupOverlay">
 
         </android.support.v7.widget.Toolbar>
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/tabs"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:layout_scrollFlags="scroll|enterAlways"
+            app:popupTheme="@style/AppTheme.PopupOverlay">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/taskTab"
+                android:background="@color/transparent"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Tasks"
+                android:gravity="center_horizontal|fill_vertical"
+                android:layout_weight="1"
+                android:contextClickable="false"
+                android:clickable="true"
+                android:textSize="15dp" />
+            <Button
+                android:id="@+id/usersTab"
+                android:background="@color/transparent"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:linksClickable="false"
+                android:text="Users"
+                android:gravity="center_horizontal|fill_vertical"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:textSize="15dp" />
+
+            </LinearLayout>
+        </android.support.v7.widget.Toolbar>
 
     </android.support.design.widget.AppBarLayout>
 
@@ -31,7 +69,9 @@
         android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:paddingBottom="55dp"
+        android:layout_marginBottom="55dp"/>
 
     <!--android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"

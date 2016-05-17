@@ -30,6 +30,7 @@ public class TasksFragment extends Fragment{
 
     private View view;
     private static final String ARG_SECTION_NUMBER = "section_number";
+    ListView listView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -37,7 +38,15 @@ public class TasksFragment extends Fragment{
 
         // Inflate the layout for login
         view = inflater.inflate(R.layout.fragment_tasks, container, false);
-        ListView listView = (ListView)view.findViewById(R.id.taskList);
+        listView = (ListView)view.findViewById(R.id.taskList);
+
+
+        return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
         final Database db = ((PinderApplication) getActivity().getApplication()).getDatabase();
         List<Task> tasks = db.getMatchingTasks();
         final ArrayAdapter adapter = new TaskAdapter(getActivity(), R.layout.listelement, tasks);
@@ -54,8 +63,6 @@ public class TasksFragment extends Fragment{
                     Toast.makeText(getActivity(), "This task is already assigned to a pair", Toast.LENGTH_SHORT).show();
             }
         });
-
-        return view;
     }
 
     public static TasksFragment newInstance() {

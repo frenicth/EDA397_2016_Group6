@@ -20,6 +20,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -41,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
     public android.support.v7.app.ActionBar actionBar;
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private ViewPager mViewPager;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -127,87 +130,32 @@ public class MainActivity extends AppCompatActivity {
         public Fragment getItem(int position) {
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
-            System.out.println(position);
+            Button buttonTasks = (Button) findViewById(R.id.taskTab);
+            Button buttonProfiles = (Button) findViewById(R.id.usersTab);
             switch (position) {
                 case 0:
-                    return UserProfileFragment.newInstance();
-                case 1:
+                    buttonTasks.setTextColor(getResources().getColor(R.color.trelloBlue));
+                    buttonProfiles.setTextColor(getResources().getColor(R.color.white));
+
                     return TasksFragment.newInstance();
-                case 2:
+                case 1:
+                    buttonProfiles.setTextColor(getResources().getColor(R.color.trelloBlue));
+                    buttonTasks.setTextColor(getResources().getColor(R.color.white));
+
                     return ProfilesFragment.newInstance();
+                /*case 2:
+                    return UserProfileFragment.newInstance();*/
                 default:
-                    return null;
+                    return ProfilesFragment.newInstance();
             }
         }
 
-        @Override
+        //TODO get active fragment and change attributes on the tabbed buttons depending on the active fragment
+
         public int getCount() {
-            // Show 3 total pages.
-            return 3;
+            // Show 2 total pages.
+            return 2;
         }
 
-    /*
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            // Respond to the action bar's Up/Home button
-            case android.R.id.home:
-                fragmentManager.popBackStack();
-                actionBar.setDisplayHomeAsUpEnabled(false);
-                return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-    public void showTasks (View view ) {
-        Database database = ((PinderApplication)getApplication()).getDatabase();
-        Log.i(this.getClass().getName(), database.getAllTasks().size() + "");
-
-        fragmentTransaction= getFragmentManager().beginTransaction();
-        //fragmentTransaction.replace(R.id.activity_main, tasksFragment);
-        fragmentTransaction.addToBackStack("");
-        fragmentTransaction.commit();
-        actionBar.setDisplayHomeAsUpEnabled(true);
-    }
-
-    public void viewProfile(View view){
-        //view you own profile, get data from database and show in fragment used below
-        fragmentTransaction= getFragmentManager().beginTransaction();
-        //fragmentTransaction.replace(R.id.activity_main, userProfileFragment);
-        fragmentTransaction.addToBackStack("");
-        fragmentTransaction.commit();
-        actionBar.setDisplayHomeAsUpEnabled(true);
-
-    }
-    public void showProfiles(View view){
-
-        //view list of profiles, get data from database and show in fragment used below
-        fragmentTransaction= getFragmentManager().beginTransaction();
-        //fragmentTransaction.replace(R.id.activity_main, profilesFragment);
-        fragmentTransaction.addToBackStack("");
-        fragmentTransaction.commit();
-        actionBar.setDisplayHomeAsUpEnabled(true);
-
-    }
-    public void signOut(View view){
-        SharedPreferences sharedPreferences = this.getSharedPreferences("authorizeprefs", Context.MODE_PRIVATE);
-        sharedPreferences.edit().putString("authtoken", "empty").apply();
-        Toast.makeText(MainActivity.this, "You are now logged out", Toast.LENGTH_SHORT).show();
-        Intent log = new Intent(this, LoginActivity.class);
-        startActivity(log);
-    }
-
-    @Override
-    public void onBackPressed() {
-        if (getFragmentManager().getBackStackEntryCount() > 0) {
-            getFragmentManager().popBackStack();
-            actionBar.setDisplayHomeAsUpEnabled(false);
-        } else {
-            //we don't want back navigation to go back to the login screen, sign out should do be the only navigation back to
-            //that screen.
-            //super.onBackPressed();
-        }
-    }
-    */
     }
 }

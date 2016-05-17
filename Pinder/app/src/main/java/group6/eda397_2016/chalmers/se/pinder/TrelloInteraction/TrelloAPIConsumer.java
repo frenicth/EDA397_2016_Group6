@@ -29,8 +29,8 @@ public class TrelloAPIConsumer {
     protected static JSONObject result;
     //Tags to be used for JSON parsing
     private final static String TYPE_USER = "user";
-    private final static String TYPE_TEAM = "agilesoftwaredevgroup6";
-    private final static String BACKLOGID = "56f3e9b47ebaa6890e8574f3";
+    private final static String TYPE_TEAM = "agilesoftwaredevgroup6"; // the name of the Board in Trello
+    private final static String BACKLOGID = "56f3e9b47ebaa6890e8574f3"; //the id of the backlog list in Trello
     private final static String TAG_ID = "id";
     private final static String TAG_NAME = "name";
     private final static String TAG_FULLNAME = "fullName";
@@ -42,19 +42,19 @@ public class TrelloAPIConsumer {
     private final static String GET = "GET";
     private final static String PUT = "PUT";
 
-
+// GET/PUT methods for Trello API
     public static void fetchUserProfile(String username, Context context) {
         SharedPreferences sharedPref = context.getApplicationContext().getSharedPreferences("authorizeprefs", Context.MODE_PRIVATE);
         String authToken = sharedPref.getString("authtoken", "empty");
         String getUserProfile = trelloAPIUrl + "members/" + username + "?fields=fullName,bio" + appKeyandToken + authToken;
-        makeJSONRequest(GET, getUserProfile,TYPE_USER,  context);
+        makeJsonRequest(GET, getUserProfile, TYPE_USER, context);
     }
 
     public static void fetchTeamMembers(Context context) {
         SharedPreferences sharedPref = context.getApplicationContext().getSharedPreferences("authorizeprefs", Context.MODE_PRIVATE);
         String authToken = sharedPref.getString("authtoken", "empty");
         String getTeamMembersURL = trelloAPIUrl + "organizations/" + TYPE_TEAM + "/members?fields=fullName,bio" + appKeyandToken + authToken;
-        makeJSONArrayRequest(getTeamMembersURL,TAG_MEMBERS, context);
+        makeJsonArrayRequest(getTeamMembersURL, TAG_MEMBERS, context);
 
         //this will return ids and names
     }
@@ -63,197 +63,181 @@ public class TrelloAPIConsumer {
         SharedPreferences sharedPref = context.getApplicationContext().getSharedPreferences("authorizeprefs", Context.MODE_PRIVATE);
         String authToken = sharedPref.getString("authtoken", "empty");
         String getListTasks = trelloAPIUrl + "lists/" + BACKLOGID + "?fields=name&cards=open&card_fields=name,desc" + appKeyandToken + authToken;
-        makeJSONRequest(GET,getListTasks,TAG_TASKS, context);
-    }
-    private static void fetchMembersAssignedToTask(Context context, String taskID){
-        SharedPreferences sharedPref = context.getApplicationContext().getSharedPreferences("authorizeprefs", Context.MODE_PRIVATE);
-        String authToken = sharedPref.getString("authtoken", "empty");
-        String getAssignedMembers = trelloAPIUrl+"cards/" + taskID +"/members?fields=fullName"+appKeyandToken+authToken;
-        makeJSONArrayRequest(getAssignedMembers,TAG_ASSIGNEDMEMBERS,taskID, context );
+        makeJsonRequest(GET, getListTasks, TAG_TASKS, context);
     }
 
-    public static void addMemberToTask(Context context, Task task){
+    private static void fetchMembersAssignedToTask(Context context, String taskID) {
         SharedPreferences sharedPref = context.getApplicationContext().getSharedPreferences("authorizeprefs", Context.MODE_PRIVATE);
         String authToken = sharedPref.getString("authtoken", "empty");
-        String addMember = trelloAPIUrl+ "cards/"+task.getId()+"/idMembers?value="+task.getAssignedMemebers()+appKeyandToken+authToken;
-        makeJSONRequest(PUT,addMember,null, context);
+        String getAssignedMembers = trelloAPIUrl + "cards/" + taskID + "/members?fields=fullName" + appKeyandToken + authToken;
+        makeJsonArrayRequest(getAssignedMembers, TAG_ASSIGNEDMEMBERS, taskID, context);
     }
 
-    public static void updateMemberBio(Context context, Profile profile){
+    public static void updateAssignedMembersForTask(Context context, Task task) {
         SharedPreferences sharedPref = context.getApplicationContext().getSharedPreferences("authorizeprefs", Context.MODE_PRIVATE);
         String authToken = sharedPref.getString("authtoken", "empty");
-        String updateBio =trelloAPIUrl+"members/bio?value="+profile.getBioForTrello()+ appKeyandToken + authToken;
-        makeJSONRequest(PUT,updateBio,null, context);
+        String addMember = trelloAPIUrl + "cards/" + task.getId() + "/idMembers?value=" + task.getAssignedMemebers() + appKeyandToken + authToken;
+        makeJsonRequest(PUT, addMember, null, context);
     }
 
-    public static void makeJSONRequest(String type, final String url, final String mainElementTag, final Context context) {
+    public static void updateMemberBio(Context context, Profile profile) {
+        SharedPreferences sharedPref = context.getApplicationContext().getSharedPreferences("authorizeprefs", Context.MODE_PRIVATE);
+        String authToken = sharedPref.getString("authtoken", "empty");
+        String updateBio = trelloAPIUrl + "members/bio?value=" + profile.getBioForTrello() + appKeyandToken + authToken;
+        makeJsonRequest(PUT, updateBio, null, context);
+    }
+
+    // JSON request methods used in GET/PUT methods
+    public static void makeJsonRequest(String type, final String url, final String mainElementTag, final Context context) {
         JsonObjectRequest jsonObjReq = null;
-       if (type.equals("GET")) {
-           // Making a request to url and getting response
+        if (type.equals("GET")) {
+            // Making a request to url and getting response
             jsonObjReq = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
 
-               @Override
-               public void onResponse(JSONObject response) {
-                   parseJSONObject(response, mainElementTag, context);
-               }
-           }, new Response.ErrorListener() {
+                @Override
+                public void onResponse(JSONObject response) {
+                    parseJsonObject(response, mainElementTag, context);
+                }
+            }, new Response.ErrorListener() {
 
-               @Override
-               public void onErrorResponse(VolleyError error) {
-                   VolleyLog.e("Error on makeJSONRequest: ", "url: " + url);
-               }
-           });
-       }
-        else if (type.equals("PUT"))
-       {
-           // Making a request to url and getting response
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    VolleyLog.e("Error on makeJSONRequest: ", "url: " + url);
+                }
+            });
+        } else if (type.equals("PUT")) {
+            // Making a request to url and getting response
             jsonObjReq = new JsonObjectRequest(Request.Method.PUT, url, null, new Response.Listener<JSONObject>() {
 
-               @Override
-               public void onResponse(JSONObject response) {
+                @Override
+                public void onResponse(JSONObject response) {
 
-               }
-           }, new Response.ErrorListener() {
+                }
+            }, new Response.ErrorListener() {
 
-               @Override
-               public void onErrorResponse(VolleyError error) {
-                   VolleyLog.e("Error on makeJSONRequest: ", "url: " + url);
-               }
-           });
-       }
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    VolleyLog.e("Error on makeJSONRequest: ", "url: " + url);
+                }
+            });
+        }
 
 // Adding request to request queue
         VolleyManager.getInstance(context).addToRequestQueue(jsonObjReq);
     }
 
-    public static void makeJSONArrayRequest(final String url, final String mainElementTag, final Context context)
-    {
+    public static void makeJsonArrayRequest(final String url, final String mainElementTag, final Context context) {
         JsonArrayRequest jsonArrayReq = new JsonArrayRequest(url, new Response.Listener<JSONArray>()
 
         {
             @Override
-            public void onResponse(JSONArray response)
-            {
-                parseJSONArray(response, mainElementTag,context);
-            }
-
-            }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                VolleyLog.e("Error on makeJSONArrayRequest: ","url: "+url);
-        }
-        });
-
-        // Adding request to request queue
-        VolleyManager.getInstance(context).addToRequestQueue(jsonArrayReq);
-    }
-    public static void makeJSONArrayRequest(final String url, final String mainElementTag,final String taskID, final Context context)
-    {
-        JsonArrayRequest jsonArrayReq = new JsonArrayRequest(url, new Response.Listener<JSONArray>()
-
-        {
-            @Override
-            public void onResponse(JSONArray response)
-            {
-                parseJSONArray(response, mainElementTag,taskID,context);
+            public void onResponse(JSONArray response) {
+                parseJsonArray(response, mainElementTag, context);
             }
 
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                VolleyLog.e("Error on makeJSONArrayRequest: ","url: "+url);
+                VolleyLog.e("Error on makeJSONArrayRequest: ", "url: " + url);
             }
         });
 
         // Adding request to request queue
         VolleyManager.getInstance(context).addToRequestQueue(jsonArrayReq);
     }
-    public static void parseJSONObject(JSONObject data, String mainElementTag, Context context) {
-        PinderApplication app = (PinderApplication) context.getApplicationContext();
-        Database db =app.getDatabase();
-        try
-        {
-            if (data == null) {
-                Log.e("Null JSON response", "Null response for main element "+mainElementTag);
-            }
-            else
-                {
-                    if (mainElementTag.equals(TYPE_USER))
-                    {
-                        String id = data.getString(TAG_ID);
-                        String name = data.getString(TAG_FULLNAME);
-                        String bio = data.getString("bio");
-                        Profile profile = new Profile(id,name, bio);
-                        db.setCurrentUser(profile);
-                        //add it somewhere
 
-                    }
-                    if (mainElementTag.equals(TAG_TASKS)) {
-                        JSONArray array = data.getJSONArray(TAG_TASKS);
-                        for (int i = 0; i < array.length(); i++) {
-                            JSONObject card = (JSONObject) array.get(i);
-                            String id = card.getString(TAG_ID);
-                            String nameAndPoints = card.getString(TAG_NAME);
-                            String descAndSkills = card.getString("desc");
-                            Task task = new Task(id, nameAndPoints, descAndSkills);
-                            db.createTask(task);
-                            fetchMembersAssignedToTask(context, id);
-                        }
-                    }
+    public static void makeJsonArrayRequest(final String url, final String mainElementTag, final String taskID, final Context context) {
+        JsonArrayRequest jsonArrayReq = new JsonArrayRequest(url, new Response.Listener<JSONArray>()
+
+        {
+            @Override
+            public void onResponse(JSONArray response) {
+                parseJsonArray(response, mainElementTag, taskID, context);
+            }
+
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                VolleyLog.e("Error on makeJSONArrayRequest: ", "url: " + url);
+            }
+        });
+
+        // Adding request to request queue
+        VolleyManager.getInstance(context).addToRequestQueue(jsonArrayReq);
+    }
+
+    //Methods for parsing the JSON responses and creating object to be saved in DatabaseLocal singleton
+    public static void parseJsonObject(JSONObject data, String mainElementTag, Context context) {
+        PinderApplication app = (PinderApplication) context.getApplicationContext();
+        Database db = app.getDatabase();
+        try {
+            if (data == null) {
+                Log.e("Null JSON response", "Null response for main element " + mainElementTag);
+            } else {
+                if (mainElementTag.equals(TYPE_USER)) {
+                    String id = data.getString(TAG_ID);
+                    String name = data.getString(TAG_FULLNAME);
+                    String bio = data.getString("bio");
+                    Profile profile = new Profile(id, name, bio);
+                    db.setCurrentUser(profile);
+                    //add it somewhere
 
                 }
-
-        }
-        catch (JSONException e)
-                    {
-                     e.printStackTrace();
-                        Log.e ("Parse JSONObject Error:", e.toString());
+                if (mainElementTag.equals(TAG_TASKS)) {
+                    JSONArray array = data.getJSONArray(TAG_TASKS);
+                    for (int i = 0; i < array.length(); i++) {
+                        JSONObject card = (JSONObject) array.get(i);
+                        String id = card.getString(TAG_ID);
+                        String nameAndPoints = card.getString(TAG_NAME);
+                        String descAndSkills = card.getString("desc");
+                        Task task = new Task(id, nameAndPoints, descAndSkills);
+                        db.createTask(task);
+                        fetchMembersAssignedToTask(context, id);
                     }
+                }
+
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+            Log.e("Parse JSONObject Error:", e.toString());
+        }
 
     }
 
-    public static void parseJSONArray(JSONArray data, String mainElementTag, Context context)
-    {
+    public static void parseJsonArray(JSONArray data, String mainElementTag, Context context) {
         PinderApplication app = (PinderApplication) context.getApplicationContext();
-        Database db =app.getDatabase();
-        try
-    {
-        if (data == null) {
-            Log.e("Null JSONArray response", "Null response for main element "+mainElementTag);
-        }
-        else
-        {
-            if (mainElementTag.equals(TAG_MEMBERS)) {
-                for (int i = 0; i < data.length(); i++) {
-                    JSONObject member = (JSONObject) data.get(i);
-                    String id = member.getString(TAG_ID);
-                    String name = member.getString(TAG_FULLNAME);
-                    String bio = member.getString("bio");
-                    Profile profile = new Profile(id,name, bio);
-                    db.createProfile(profile);
+        Database db = app.getDatabase();
+        try {
+            if (data == null) {
+                Log.e("Null JSONArray response", "Null response for main element " + mainElementTag);
+            } else {
+                if (mainElementTag.equals(TAG_MEMBERS)) {
+                    for (int i = 0; i < data.length(); i++) {
+                        JSONObject member = (JSONObject) data.get(i);
+                        String id = member.getString(TAG_ID);
+                        String name = member.getString(TAG_FULLNAME);
+                        String bio = member.getString("bio");
+                        Profile profile = new Profile(id, name, bio);
+                        db.createProfile(profile);
+                    }
                 }
             }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
 
     }
-    catch (JSONException e)
-    {
-        e.printStackTrace();
-    }
 
-}
-    public static void parseJSONArray(JSONArray data, String mainElementTag,String taskID, Context context)
-    {
+    public static void parseJsonArray(JSONArray data, String mainElementTag, String taskID, Context context) {
         PinderApplication app = (PinderApplication) context.getApplicationContext();
-        Database db =app.getDatabase();
-        try
-        {
+        Database db = app.getDatabase();
+        try {
             if (data == null) {
-                Log.e("Null JSONArray response", "Null response for main element "+mainElementTag);
-            }
-            else
-            {
-                if (data.length()>0) {
+                Log.e("Null JSONArray response", "Null response for main element " + mainElementTag);
+            } else {
+                if (data.length() > 0) {
                     for (int i = 0; i < data.length(); i++) {
                         JSONObject member = (JSONObject) data.get(i);
                         String id = member.getString(TAG_ID);
@@ -264,9 +248,7 @@ public class TrelloAPIConsumer {
                 }
             }
 
-        }
-        catch (JSONException e)
-        {
+        } catch (JSONException e) {
             e.printStackTrace();
         }
 

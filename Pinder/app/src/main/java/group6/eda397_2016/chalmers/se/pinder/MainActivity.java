@@ -130,17 +130,18 @@ public class MainActivity extends AppCompatActivity {
         public Fragment getItem(int position) {
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
-            Button buttonTasks = (Button) findViewById(R.id.taskTab);
-            Button buttonProfiles = (Button) findViewById(R.id.usersTab);
+
+            /*Button buttonTasks = (Button) findViewById(R.id.taskTab);
+            Button buttonProfiles = (Button) findViewById(R.id.usersTab);*/
             switch (position) {
                 case 0:
-                    buttonTasks.setTextColor(getResources().getColor(R.color.trelloBlue));
-                    buttonProfiles.setTextColor(getResources().getColor(R.color.white));
+                    //buttonTasks.setTextColor(getResources().getColor(R.color.trelloBlue));
+                    //buttonProfiles.setTextColor(getResources().getColor(R.color.white));
 
                     return TasksFragment.newInstance();
                 case 1:
-                    buttonProfiles.setTextColor(getResources().getColor(R.color.trelloBlue));
-                    buttonTasks.setTextColor(getResources().getColor(R.color.white));
+                    //buttonProfiles.setTextColor(getResources().getColor(R.color.trelloBlue));
+                    //buttonTasks.setTextColor(getResources().getColor(R.color.white));
 
                     return ProfilesFragment.newInstance();
                 /*case 2:
@@ -150,7 +151,8 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
-        //TODO get active fragment and change attributes on the tabbed buttons depending on the active fragment
+        //TODO get the active fragment and change attributes on the tabbed buttons depending on the active fragment
+        //TODO -||-                    and reload the fragments content on active
 
         public int getCount() {
             // Show 2 total pages.

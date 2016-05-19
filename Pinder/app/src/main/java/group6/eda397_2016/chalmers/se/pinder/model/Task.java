@@ -101,14 +101,14 @@ public class Task {
     }
 
 
-    public void removeMember(Profile profile){
-        if (this.assignedMembers.contains(profile)){
+    public void removeMember(String profile){
+
             for (Profile p : assignedMembers) {
-                if (p.getName().toString().equals(profile.getName().toString())){
+                if (p.getName().toString().equals(profile)){
                     assignedMembers.remove(p);
                 }
             }
-        }
+
     }
 
     public String getAssignedMembersNames() {

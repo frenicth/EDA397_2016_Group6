@@ -68,7 +68,7 @@ public class TasksFragment extends Fragment{
                     //with method something like: public void removeMember(Profile profile)
                     //I don't know the Trello "strings" for that action
 
-                    item.removeMember(db.getCurrentUser());
+                    item.removeMember(db.getCurrentUser().getName().toString());
                     TrelloAPIConsumer.updateAssignedMembersForTask(getActivity().getApplicationContext(), item);
                 }
                 else if (!exists){

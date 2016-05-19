@@ -74,6 +74,8 @@ public class TasksFragment extends Fragment{
                     }
                     else{
                         Snackbar.make(view, "You are now assigned to this task", Snackbar.LENGTH_LONG).show();
+                        //add (click again to be removed)to the snack when implemented
+
                         //add the user to the task here
                         item.assignMember(db.getCurrentUser());
                         TrelloAPIConsumer.updateAssignedMembersForTask(getActivity().getApplicationContext(), item);

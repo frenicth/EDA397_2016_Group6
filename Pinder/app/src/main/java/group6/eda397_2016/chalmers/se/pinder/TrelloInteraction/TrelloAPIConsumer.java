@@ -41,6 +41,7 @@ public class TrelloAPIConsumer {
     private final static String TAG_TASKS = "cards";
     private final static String GET = "GET";
     private final static String PUT = "PUT";
+    private final static String DELETE = "DELETE";
 
 // GET/PUT methods for Trello API
     public static void fetchUserProfile(String username, Context context) {
@@ -78,6 +79,14 @@ public class TrelloAPIConsumer {
         String authToken = sharedPref.getString("authtoken", "empty");
         String addMember = trelloAPIUrl + "cards/" + task.getId() + "/idMembers?value=" + task.getAssignedMembersNames() + appKeyandToken + authToken;
         makeJsonRequest(PUT, addMember, null, context);
+    }
+
+    //TODO: DOES NOT WORK
+    public static void removeAssignedMemberFromTask(Context context, Task task, Profile profile) {
+        SharedPreferences sharedPref = context.getApplicationContext().getSharedPreferences("authorizeprefs", Context.MODE_PRIVATE);
+        String authToken = sharedPref.getString("authtoken", "empty");
+        String removeMember = trelloAPIUrl + "cards/" + task.getId() + "/members/" + profile.getName() + appKeyandToken + authToken;
+        makeJsonRequest(DELETE, removeMember, null, context);
     }
 
     public static void updateMemberBio(Context context, Profile profile) {

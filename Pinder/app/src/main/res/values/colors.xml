@@ -1,14 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#FFBB00</color>
-    <color name="colorPrimaryDark">#E3A700</color>
-    <!--color name="colorSecondary">#34787B</color>
-    <color name="colorSecondaryDark">#1D6265</color-->
+
+    <color name="colorPrimary">#CB5855</color>
+    <color name="colorPrimaryDark">#A83330</color>
     <color name="colorSecondary">#0079bf</color>
     <color name="colorSecondaryDark">#005B91</color>
-    <color name="colorAccent">#CB5855</color>
-    <color name="colorAccentDark">#A83330</color>
+
+
     <color name="white">#ffffff</color>
-    <color name="trelloBlue">#0079bf</color>
+    <color name="grey">#888888</color>
+    <color name="black">#000000</color>
     <color name="transparent">#0000</color>
+
+    <color name="trelloBlue">#0079bf</color>
+
 </resources>

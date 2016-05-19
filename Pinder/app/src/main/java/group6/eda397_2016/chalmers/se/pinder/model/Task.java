@@ -100,6 +100,16 @@ public class Task {
 
     }
 
+    public void removeMember(Profile profile){
+        if (this.assignedMembers.contains(profile)){
+            for (Profile p : assignedMembers) {
+                if (p.getName().toString().equals(profile.getName().toString())){
+                    assignedMembers.remove(p);
+                }
+            }
+        }
+    }
+
     public String getAssignedMembersNames() {
         String members = "";
         if (!assignedMembers.isEmpty()) {

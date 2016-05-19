@@ -124,6 +124,7 @@ public class MainActivity extends AppCompatActivity {
 
         if (id == R.id.action_refresh) {
 
+            //refreshes the view
             Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
             setSupportActionBar(toolbar);
 

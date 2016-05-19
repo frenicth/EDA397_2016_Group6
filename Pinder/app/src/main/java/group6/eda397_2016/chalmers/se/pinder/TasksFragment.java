@@ -51,13 +51,24 @@ public class TasksFragment extends Fragment{
 
                 //if the task has 1 or 2 members
                 if(item.getAssignedMembers().size() != 0 || item.getAssignedMembers().size() <= 2){
-                  exists = item.isAssignedMember(db.getCurrentUser());
+                    for (Profile p : item.getAssignedMembers()) {
+                        //if you are on the assigned list
+                        if(p.getName().toString().equals(db.getCurrentUser().getName().toString())){
+                            exists = true;
+                        }
                         //remains false if you are not assigned to task
+                    }
                 }
+
+
                 if (exists){
                     Toast.makeText(getActivity(), "You are already assigned to this task", Toast.LENGTH_SHORT).show();
+                    //TODO remove the user from the task here
+                    //for example item.removeMember(db.getCurrentUser());
+                    //with method something like: public void removeMember(Profile profile)
+                    //I don't know the Trello "strings" for that action
 
-                    item.removeAssignedMember(db.getCurrentUser());
+                    item.removeMember(db.getCurrentUser());
                     TrelloAPIConsumer.updateAssignedMembersForTask(getActivity().getApplicationContext(), item);
                 }
                 else if (!exists){

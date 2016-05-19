@@ -100,14 +100,15 @@ public class Task {
 
     }
 
-    public boolean isAssignedMember(Profile profile){
-        if (assignedMembers.contains(profile)){
-                return true;}
-        else return false;
-    }
-    public void removeAssignedMember (Profile profile){
-        if (isAssignedMember(profile))
-            assignedMembers.remove(profile);
+
+    public void removeMember(Profile profile){
+        if (this.assignedMembers.contains(profile)){
+            for (Profile p : assignedMembers) {
+                if (p.getName().toString().equals(profile.getName().toString())){
+                    assignedMembers.remove(p);
+                }
+            }
+        }
     }
 
     public String getAssignedMembersNames() {

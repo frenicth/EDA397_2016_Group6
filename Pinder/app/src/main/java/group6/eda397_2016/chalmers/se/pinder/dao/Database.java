@@ -22,5 +22,4 @@ public interface Database {
      public void setCurrentUser(Profile profile);
      public Profile getCurrentUser();
      public void clearDB();
-     public List<Task> getMatchingTasks();
 }

@@ -34,8 +34,8 @@ public class TestTaskParsing {
     }
 
     {
-        tasks.add(new TaskTest("0","(1) Task1","Required Skills: JavaScript, SQL"));
-        tasks.add(new TaskTest("1","(3) Task2","Required Skills: JavaScript"));
+        tasks.add(new TaskTest("0","(1) Task1","Required Skills: Javascript, SQL"));
+        tasks.add(new TaskTest("1","(3) Task2","Required Skills: Javascript"));
         tasks.add(new TaskTest("2","(2) Task3","Required Skills: "));
     }
 

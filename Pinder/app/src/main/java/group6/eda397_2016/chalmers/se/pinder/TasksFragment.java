@@ -37,7 +37,7 @@ public class TasksFragment extends Fragment{
         listView = (ListView)view.findViewById(R.id.taskList);
 
         final Database db = ((PinderApplication) getActivity().getApplication()).getDatabase();
-        List<Task> tasks = db.getMatchingTasks();
+        List<Task> tasks = db.getAllTasks();
 
         final ArrayAdapter adapter = new TaskAdapter(getActivity(), R.layout.listelement, tasks);
         listView.setAdapter(adapter);

@@ -54,6 +54,7 @@ public class DatabaseLocal implements Database {
     @Override
     public void createTask(Task task) {
         tasks.add(task);
+        orderTasks();
         Log.d("DatabaseLocal class", "added task with id: " + task.getId());
     }
 
@@ -86,6 +87,7 @@ public class DatabaseLocal implements Database {
 
     public void setCurrentUser(Profile profile) {
         this.currentUser = profile;
+        orderTasks();
         Log.d("DatabaseLocal class", "set current User: " + profile.getName());
     }
 
@@ -114,43 +116,35 @@ public class DatabaseLocal implements Database {
         return null;
     }
 
-    public List<Task> orderTasks(){
-        List<Task> orderedTasks =  new ArrayList();
-        List<String> requiredSkills = new ArrayList<>();
-        List<String> memberSkills= new ArrayList<>();
-        for (Task t:this.getAllTasks())
-        {
-            requiredSkills = t.getRequiredSkills();
-            for (Profile p:t.getAssignedMembers())
-            {}
-        }
-        return orderedTasks;
-    }
-    public List<Task> getMatchingTasks() {
-        List<Task> tasks = this.getAllTasks();
 
+    private void orderTasks() {
+        List<Task> tasks = this.getAllTasks();
+        Log.i(getClass().getName(),"ASD" + tasks.size());
         Collections.sort(tasks, new Comparator<Task>() {
             @Override
             public int compare(Task lhs, Task rhs) {
-                return rateTask(lhs) - rateTask(rhs);
+
+                Log.i(getClass().getName(),"WAT" +  lhs.getName() + " "+ rateTask(lhs));
+                return rateTask(rhs) - rateTask(lhs);
+
             }
         });
 
-        return tasks;
     }
 
     private int rateTask(Task task) {
         int counter = 0;
         for (String requiredSkill : task.getRequiredSkills()) {
-            for (String skill : this.currentUser.getSkills()) {
-                if (skill.trim().equals(requiredSkill.trim())) {
-                    System.out.println("We have a match");
-                    counter++;
-                    /**
-                     * TODO: Return this task
-                     * This is a task which required skills matches the
-                     * current users skills.
-                     */
+            if(currentUser!=null){
+                for (String skill : this.currentUser.getSkills()) {
+                    if (skill.trim().equals(requiredSkill.trim())) {
+                        counter++;
+                        /**
+                         * TODO: Return this task
+                         * This is a task which required skills matches the
+                         * current users skills.
+                         */
+                    }
                 }
             }
         }

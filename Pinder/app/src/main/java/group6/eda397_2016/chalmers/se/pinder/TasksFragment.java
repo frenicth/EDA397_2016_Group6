@@ -79,6 +79,7 @@ public class TasksFragment extends Fragment{
                     }
 
                 }
+                adapter.notifyDataSetChanged();
 
 
                 /* THE OLD CODE

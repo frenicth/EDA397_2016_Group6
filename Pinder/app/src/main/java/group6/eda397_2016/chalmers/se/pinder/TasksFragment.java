@@ -62,12 +62,7 @@ public class TasksFragment extends Fragment{
 
 
                 if (exists){
-                    Toast.makeText(getActivity(), "You are already assigned to this task", Toast.LENGTH_SHORT).show();
-                    //TODO remove the user from the task here
-                    //for example item.removeMember(db.getCurrentUser());
-                    //with method something like: public void removeMember(Profile profile)
-                    //I don't know the Trello "strings" for that action
-
+                    Snackbar.make(view, "You are now removed from this task", Snackbar.LENGTH_LONG).show();
                     item.removeMember(db.getCurrentUser().getName().toString());
                     TrelloAPIConsumer.updateAssignedMembersForTask(getActivity().getApplicationContext(), item);
                 }
@@ -76,8 +71,7 @@ public class TasksFragment extends Fragment{
                         Toast.makeText(getActivity(), "This task is already assigned to a pair", Toast.LENGTH_SHORT).show();
                     }
                     else{
-                        Snackbar.make(view, "You are now assigned to this task", Snackbar.LENGTH_LONG).show();
-                        //add (click again to be removed)to the snack when implemented
+                        Snackbar.make(view, "You are now assigned to this task (click again to be removed)", Snackbar.LENGTH_LONG).show();
 
                         //add the user to the task here
                         item.assignMember(db.getCurrentUser());

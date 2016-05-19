@@ -100,6 +100,15 @@ public class Task {
 
     }
 
+    public boolean isAssignedMember(Profile profile){
+        if (assignedMembers.contains(profile)){
+                return true;}
+        else return false;
+    }
+    public void removeAssignedMember (Profile profile){
+        if (isAssignedMember(profile))
+            assignedMembers.remove(profile);
+    }
     public String getAssignedMembersNames() {
         String members = "";
         if (!assignedMembers.isEmpty()) {

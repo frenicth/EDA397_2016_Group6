@@ -108,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
         if (id == R.id.action_logout) {
             SharedPreferences sharedPreferences = this.getSharedPreferences("authorizeprefs", Context.MODE_PRIVATE);
             sharedPreferences.edit().putString("authtoken", "empty").apply();
-            Toast.makeText(MainActivity.this, "You are now logged out", Toast.LENGTH_SHORT).show();
+            Toast.makeText(MainActivity.this, "Logging out...", Toast.LENGTH_SHORT).show();
             Intent log = new Intent(this, LoginActivity.class);
             startActivity(log);
             return true;
@@ -138,12 +138,12 @@ public class MainActivity extends AppCompatActivity {
                     //buttonTasks.setTextColor(getResources().getColor(R.color.trelloBlue));
                     //buttonProfiles.setTextColor(getResources().getColor(R.color.white));
 
-                    return TasksFragment.newInstance();
+                    return ProfilesFragment.newInstance();
                 case 1:
                     //buttonProfiles.setTextColor(getResources().getColor(R.color.trelloBlue));
                     //buttonTasks.setTextColor(getResources().getColor(R.color.white));
 
-                    return ProfilesFragment.newInstance();
+                    return TasksFragment.newInstance();
                 /*case 2:
                     return UserProfileFragment.newInstance();*/
                 default:

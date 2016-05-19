@@ -1,5 +1,6 @@
 package group6.eda397_2016.chalmers.se.pinder;
 
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -15,6 +16,7 @@ import java.util.List;
 import group6.eda397_2016.chalmers.se.pinder.TrelloInteraction.TrelloAPIConsumer;
 import group6.eda397_2016.chalmers.se.pinder.dao.Database;
 import group6.eda397_2016.chalmers.se.pinder.listhelpers.TaskAdapter;
+import group6.eda397_2016.chalmers.se.pinder.model.Profile;
 import group6.eda397_2016.chalmers.se.pinder.model.Task;
 
 /**
@@ -34,30 +36,65 @@ public class TasksFragment extends Fragment{
         view = inflater.inflate(R.layout.fragment_tasks, container, false);
         listView = (ListView)view.findViewById(R.id.taskList);
 
-
-        return view;
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
         final Database db = ((PinderApplication) getActivity().getApplication()).getDatabase();
         List<Task> tasks = db.getMatchingTasks();
+
         final ArrayAdapter adapter = new TaskAdapter(getActivity(), R.layout.listelement, tasks);
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 final Task item = (Task) parent.getItemAtPosition(position);
-                boolean result =item.assignMember(db.getCurrentUser());
-                if (result) {
+
+                //bool to see if you exist on the task already
+                boolean exists = false;
+
+                //checks if
+                if(item.getAssignedMembers().size() != 0 || item.getAssignedMembers().size() <= 2){
+                    for (Profile p : item.getAssignedMembers()) {
+                        //if you are on the assigned list
+                        if(p.getName().toString().equals(db.getCurrentUser().getName().toString())){
+                            exists = true;
+                        }
+                        //remains false if you are not assigned to task
+                    }
+                }
+                else if (item.getAssignedMembers().size() == 2){
+                    Toast.makeText(getActivity(), "This task is already assigned to a pair", Toast.LENGTH_SHORT).show();
+                }
+
+                if (exists){
+                    Toast.makeText(getActivity(), "You are already assigned to this task", Toast.LENGTH_SHORT).show();
+                    //TODO remove the user from the task here
+                    //for example item.removeMember(db.getCurrentUser());
+                    //with method something like: public void removeMember(Profile profile)
+                    //I don't know the Trello "strings" for that action
+                }
+                else if (!exists){
+                    Snackbar.make(view, "You are now assigned to this task", Snackbar.LENGTH_LONG).show();
+                    //add the user to the task here
+                    item.assignMember(db.getCurrentUser());
                     TrelloAPIConsumer.updateAssignedMembersForTask(getActivity().getApplicationContext(), item);
                 }
-                else
+
+
+                /* THE OLD CODE
+
+                boolean result = item.assignMember(db.getCurrentUser());
+                if (result) {
+                    TrelloAPIConsumer.updateAssignedMembersForTask(getActivity().getApplicationContext(), item);
+                    Toast.makeText(getActivity(), "Adding yourself to task", Toast.LENGTH_SHORT).show();
+                }
+                else{
                     Toast.makeText(getActivity(), "This task is already assigned to a pair", Toast.LENGTH_SHORT).show();
+                }*/
             }
         });
+        return view;
     }
+
+
+
 
     public static TasksFragment newInstance() {
         TasksFragment fragment = new TasksFragment();

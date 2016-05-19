@@ -26,6 +26,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.concurrent.TimeUnit;
 
 import group6.eda397_2016.chalmers.se.pinder.TrelloInteraction.TrelloAPIConsumer;
 import group6.eda397_2016.chalmers.se.pinder.dao.Database;
@@ -49,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         Database database = ((PinderApplication)getApplication()).getDatabase();
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+
         /* OLD since tabbed navigation was implemented
         setContentView(R.layout.activity_main);
         actionBar = getSupportActionBar();
@@ -66,9 +67,12 @@ public class MainActivity extends AppCompatActivity {
         /* OLD since tabbed navigation was implemented
         fragmentManager.beginTransaction().add(R.id.activity_main, mainFragment).commit();
         */
-
-
-
+        try {
+            TimeUnit.SECONDS.sleep(1);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        setContentView(R.layout.activity_main);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -157,12 +161,12 @@ public class MainActivity extends AppCompatActivity {
                     //buttonTasks.setTextColor(getResources().getColor(R.color.trelloBlue));
                     //buttonProfiles.setTextColor(getResources().getColor(R.color.white));
 
-                    return ProfilesFragment.newInstance();
+                    return TasksFragment.newInstance();
                 case 1:
                     //buttonProfiles.setTextColor(getResources().getColor(R.color.trelloBlue));
                     //buttonTasks.setTextColor(getResources().getColor(R.color.white));
 
-                    return TasksFragment.newInstance();
+                    return ProfilesFragment.newInstance();
                 /*case 2:
                     return UserProfileFragment.newInstance();*/
                 default:

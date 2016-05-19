@@ -49,7 +49,7 @@ public class TasksFragment extends Fragment{
                 //bool to see if you exist on the task already
                 boolean exists = false;
 
-                //checks if
+                //if the task has 1 or 2 members
                 if(item.getAssignedMembers().size() != 0 || item.getAssignedMembers().size() <= 2){
                     for (Profile p : item.getAssignedMembers()) {
                         //if you are on the assigned list
@@ -59,9 +59,7 @@ public class TasksFragment extends Fragment{
                         //remains false if you are not assigned to task
                     }
                 }
-                else if (item.getAssignedMembers().size() == 2){
-                    Toast.makeText(getActivity(), "This task is already assigned to a pair", Toast.LENGTH_SHORT).show();
-                }
+
 
                 if (exists){
                     Toast.makeText(getActivity(), "You are already assigned to this task", Toast.LENGTH_SHORT).show();
@@ -71,10 +69,16 @@ public class TasksFragment extends Fragment{
                     //I don't know the Trello "strings" for that action
                 }
                 else if (!exists){
-                    Snackbar.make(view, "You are now assigned to this task", Snackbar.LENGTH_LONG).show();
-                    //add the user to the task here
-                    item.assignMember(db.getCurrentUser());
-                    TrelloAPIConsumer.updateAssignedMembersForTask(getActivity().getApplicationContext(), item);
+                    if (item.getAssignedMembers().size() == 2){
+                        Toast.makeText(getActivity(), "This task is already assigned to a pair", Toast.LENGTH_SHORT).show();
+                    }
+                    else{
+                        Snackbar.make(view, "You are now assigned to this task", Snackbar.LENGTH_LONG).show();
+                        //add the user to the task here
+                        item.assignMember(db.getCurrentUser());
+                        TrelloAPIConsumer.updateAssignedMembersForTask(getActivity().getApplicationContext(), item);
+                    }
+
                 }
 
 

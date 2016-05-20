@@ -38,7 +38,17 @@ public class TaskAdapter extends ArrayAdapter<Task> {
             TextView description = (TextView)convertView.findViewById(R.id.listElemDescription);
             TextView users = (TextView)convertView.findViewById(R.id.listElemUsers);
             title.setText(task.getName());
-            description.setText(task.getRequiredSkills().toString());
+            //description.setText(task.getRequiredSkills().toString());
+
+            String skills = "";
+            if (!task.getRequiredSkills().isEmpty())
+            {
+                for(String s:task.getRequiredSkills())
+                {
+                    skills+=s +"  ";
+                }
+            }
+            description.setText(skills);
 
             //only sets the TextView for users if there are 1 or 2 users present
             if(profiles.size() != 0 || profiles.size() <= 2) {

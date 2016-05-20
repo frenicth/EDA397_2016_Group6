@@ -44,11 +44,11 @@ public class MainActivity extends AppCompatActivity {
     public android.support.v7.app.ActionBar actionBar;
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private ViewPager mViewPager;
-
+    Database database;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Database database = ((PinderApplication)getApplication()).getDatabase();
+        database = ((PinderApplication)getApplication()).getDatabase();
         super.onCreate(savedInstanceState);
 
         /* OLD since tabbed navigation was implemented
@@ -123,7 +123,6 @@ public class MainActivity extends AppCompatActivity {
         }
 
         if (id == R.id.action_refresh) {
-
             //refreshes the view
             Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
             setSupportActionBar(toolbar);
@@ -139,6 +138,9 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+    public Database getDatabase(){
+        return this.database;
     }
     /**
      * A {@link FragmentPagerAdapter} that returns a fragment corresponding to

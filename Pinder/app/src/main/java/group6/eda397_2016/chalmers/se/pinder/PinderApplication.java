@@ -27,7 +27,7 @@ public class PinderApplication extends Application {
        // volleyManager = VolleyManager.getInstance(this.getApplicationContext());
     }
 
-    public Database getDatabase() {
+public Database getDatabase() {
         return database;
     }
 

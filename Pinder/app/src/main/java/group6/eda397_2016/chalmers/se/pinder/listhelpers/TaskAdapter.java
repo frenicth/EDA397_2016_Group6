@@ -37,8 +37,8 @@ public class TaskAdapter extends ArrayAdapter<Task> {
             TextView title = (TextView)convertView.findViewById(R.id.listElemTitle);
             TextView description = (TextView)convertView.findViewById(R.id.listElemDescription);
             TextView users = (TextView)convertView.findViewById(R.id.listElemUsers);
-            title.setText(task.getName());
-            //description.setText(task.getRequiredSkills().toString());
+            title.setText(task.getStoryPoints() + "p, " + task.getName());
+//            description.setText(task.getRequiredSkills().toString());
 
             String skills = "";
             if (!task.getRequiredSkills().isEmpty())
